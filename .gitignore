@@ -1,3 +1,4 @@
-/*.apk
-/*/src
 /*/pkg
+/*/src
+/packages/aports/x86_64/*.apk
+/packages/aports/x86_64/APKINDEX.tar.gz
