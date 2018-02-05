@@ -1,0 +1,11 @@
+--- dash-0.5.9.1.orig/src/histedit.c
++++ dash-0.5.9.1/src/histedit.c
+@@ -217,7 +217,7 @@
+ #ifdef __GLIBC__
+ 	optind = 0;
+ #else
+-	optreset = 1; optind = 1; /* initialize getopt */
++	/* optreset = 1; */ optind = 1; /* initialize getopt */
+ #endif
+ 	while (not_fcnumber(argv[optind]) &&
+ 	      (ch = getopt(argc, argv, ":e:lnrs")) != -1)
