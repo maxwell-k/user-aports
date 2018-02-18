@@ -1,4 +1,4 @@
 /*/pkg
 /*/src
-/packages/aports/x86_64/*.apk
-/packages/aports/x86_64/APKINDEX.tar.gz
+/packages/local/x86_64/*.apk
+/packages/local/x86_64/APKINDEX.tar.gz
