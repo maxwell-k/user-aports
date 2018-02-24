@@ -1,0 +1,32 @@
+variables:
+  KEY: keith.maxwell@gmail.com-5a1151a5.rsa
+build:
+  image: alpine:edge
+  stage: build
+  script:
+    # install build system from default repositories
+    - apk update
+    - apk add alpine-sdk lua-aports
+    # make testing repository available for build dependencies, main and
+    # community are already
+    - >
+        printf '%s\n' http://dl-cdn.alpinelinux.org/alpine/edge/testing >>
+        /etc/apk/repositories
+    - apk update
+    # install the public key so `apk index` succeeds
+    - cp keith.maxwell@gmail.com-5a1151a5.rsa.pub /etc/apk/keys/
+    # ~/.abuild/abuild.conf points to the private key on disk
+    - printf '%s\n' "$abuild_key" > "$KEY"
+    - ls -al "$KEY" # to check file length, to make sure variable is available
+    - test -d .abuild || mkdir .abuild
+    - >
+        printf 'PACKAGER_PRIVKEY="%s/%s"\n' "$CI_PROJECT_DIR" "$KEY" |
+        tee .abuild/abuild.conf
+    # run as abuild because buildrepo will not run as root
+    - adduser -D -s /bin/ash -h "$(pwd)" -G abuild abuild
+    - su abuild -c "buildrepo -a \"$CI_PROJECT_DIR\" local"
+  artifacts:
+    paths:
+      - packages
+      - "$KEY.pub"
+    expire_in: 1 day
