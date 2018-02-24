@@ -1,28 +1,16 @@
-First because it is only a minor change:
+Ideas
+-----
 
--   dash based on existing_ `APKBUILD` but with `libedit` support enabled
+-   `jpeginfo <https://github.com/tjko/jpeginfo>`__,
+    a simple C based program
 
-Then a simple C based program:
-
--   `jpeginfo <https://github.com/tjko/jpeginfo>`__
-
-Then a library with dependencies that is needed for creating PDFs from scans:
-
--   `jbig2enc <https://github.com/agl/jbig2enc>`__
-
-Then Python libraries
-
--   `grpcio <https://grpc.io/>`__ as a prerequisite for google-cloud
-
--   `google-cloud
-    <https://googlecloudplatform.github.io/google-cloud-python/>`__
+-   `jbig2enc <https://github.com/agl/jbig2enc>`__, a library with
+    dependencies that is needed for creating PDFs from scans
 
 -   Python 3 version of `py-enchant`
 
 -   `Jupyter` (See `Appendix: Jupyter`_)
 
-.. _existing: https://git.alpinelinux.org/cgit/aports/tree/community/
-    dash?h=master
 
 Appendix: Juptyer
 =================
