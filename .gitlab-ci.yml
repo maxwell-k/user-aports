@@ -25,12 +25,13 @@ build:
     # run as abuild because buildrepo will not run as root
     - adduser -D -s /bin/ash -h "$(pwd)" -G abuild abuild
     - su abuild -c "buildrepo -a \"$(pwd)\" -d \"$(realpath public)\" local"
-  artifacts:
-    paths: [public,]
-    expire_in: 1 day
+  artifacts: { paths: [public,], expire_in: 1 day }
 
 pages:
   stage: deploy
-  script: ['true', ]
-  artifacts:
-    paths: [public,]
+  script:
+    - apk update
+    - apk add tree
+    - cd public
+    - tree -T aports -H . --noreport -o index.html
+  artifacts: { paths: [public,] }
