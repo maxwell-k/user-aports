@@ -35,3 +35,4 @@ pages:
     - cd public
     - tree -T aports -H . --noreport -o index.html
   artifacts: { paths: [public,] }
+  only: [master, ]
