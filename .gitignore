@@ -1,5 +1,6 @@
 /*.rsa
 /*/pkg
 /*/src
-/packages/local/x86_64/*.apk
-/packages/local/x86_64/APKINDEX.tar.gz
+/.abuild/abuild.conf
+/public/local/x86_64/*.apk
+/public/local/x86_64/APKINDEX.tar.gz
