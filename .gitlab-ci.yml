@@ -9,7 +9,7 @@ build:
   script:
     # install build system from default repositories
     - apk update
-    - apk add alpine-sdk lua-aports
+    - apk add alpine-sdk lua-aports tree
     # make testing repository available for build dependencies, main and
     # community are already
     - printf '%s\n' "$TESTING"  >> /etc/apk/repositories
@@ -25,14 +25,12 @@ build:
     # run as abuild because buildrepo will not run as root
     - adduser -D -s /bin/ash -h "$(pwd)" -G abuild abuild
     - su abuild -c "buildrepo -a \"$(pwd)\" -d \"$(realpath public)\" local"
+    - cd public
+    - tree -T "aports — $CI_COMMIT_SHA" -H . --noreport -o index.html
   artifacts: { paths: [public,], expire_in: 1 day }
 
 pages:
   stage: deploy
-  script:
-    - apk update
-    - apk add tree
-    - cd public
-    - tree -T aports -H . --noreport -o index.html
+  script: ["true",]
   artifacts: { paths: [public,] }
-  only: [master, ]
+  only: [master,]
