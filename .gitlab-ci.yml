@@ -33,6 +33,6 @@ pages:
     - apk update
     - apk add tree
     - cd public
-    - tree -T aports -H . --noreport -o index.html
+    - tree -T "aports — $CI_COMMIT_SHA" -H . --noreport -o index.html
   artifacts: { paths: [public,] }
   only: [master, ]
