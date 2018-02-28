@@ -28,7 +28,7 @@ Ideas
 -   `Jupyter` (See Appendix)
 
 
-Appendix: Juptyer
+Appendix: Jupyter
 =================
 
 List written by installing `Jupyter` with Ansible and then running
