@@ -14,6 +14,13 @@ Building locally
 #.  Install build tools with ``./setup.yaml``
 #.  Build with ``su abuild -c 'buildrepo local'``
 
+Main repository
+---------------
+
+To get a copy of the main Alpine Linux repository use::
+
+    git clone --depth 1 git://git.alpinelinux.org/aports
+
 Ideas
 -----
 
