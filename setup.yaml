@@ -39,4 +39,6 @@
         home: "{{ playbook_dir | realpath }}"
         shell: /bin/ash
         createhome: no
+    - name: apk works with minimal path
+      file: { state: link, src: /sbin/apk, path: /bin/apk }
 # vim: ft=ansible
