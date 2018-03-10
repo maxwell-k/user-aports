@@ -1,0 +1,51 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: all
+  name: Setup to build packages
+  gather_facts: no
+  vars:
+    key: keith.maxwell@gmail.com-5a1151a5.rsa
+    packages:
+      alpine-sdk: for the abuild commmand
+      lua-aports: for the buildrepo command
+      tree: to create index.html
+      shadow: to manage users and groups from Ansible
+  tasks:
+    - name: Check that the private key is available
+      file: { path: keith.maxwell@gmail.com-5a1151a5.rsa, state: file }
+    - name: Make testing available for build dependencies
+      copy:
+        dest: /etc/apk/repositories
+        content: |
+          {{ mirror }}/edge/main
+          {{ mirror }}/edge/community
+          {{ mirror }}/edge/testing
+    - name: Fetch repository indexes
+      apk: { update_cache: yes }
+    - { name: Add packages, apk: { name: "{{ packages.keys() }}" } }
+    - name: Install the public key so `apk index` succeeds
+      copy:
+        src: "public/{{ key }}.pub"
+        dest: "/etc/apk/keys/{{ key }}.pub"
+    - name: abuild.conf points to private key
+      lineinfile:
+        path: ./.abuild/abuild.conf
+        create: yes
+        line: "PACKAGER_PRIVKEY='{{ key | realpath }}'"
+    - name: Add the abuild user
+      user:
+        name: abuild
+        group: abuild
+        home: "{{ playbook_dir | realpath }}"
+        shell: /bin/ash
+        createhome: no
+    - name: Make sure the abuild user owns this repository
+      file:
+        state: directory
+        recurse: yes
+        owner: abuild
+        group: abuild
+        path: .
+    - name: apk works with minimal path
+      file: { state: link, src: /sbin/apk, path: /bin/apk }
+# vim: ft=ansible
