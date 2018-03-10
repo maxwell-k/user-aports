@@ -1,0 +1,7 @@
+all:
+  vars:
+    mirror: http://dl-cdn.alpinelinux.org/alpine/
+  hosts:
+    localhost:
+      ansible_connection: local
+

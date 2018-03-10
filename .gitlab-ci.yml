@@ -1,29 +1,14 @@
 image: alpine:edge
 
 variables:
-  KEY: keith.maxwell@gmail.com-5a1151a5.rsa
-  TESTING: http://dl-cdn.alpinelinux.org/alpine/edge/testing
+  key: keith.maxwell@gmail.com-5a1151a5.rsa
 
 build:
   stage: build
   script:
-    # install build system from default repositories
-    - apk update
-    - apk add alpine-sdk lua-aports tree
-    # make testing repository available for build dependencies, main and
-    # community are already
-    - printf '%s\n' "$TESTING"  >> /etc/apk/repositories
-    - apk update
-    # install the public key so `apk index` succeeds
-    - cp "public/$KEY.pub" /etc/apk/keys/
-    # ~/.abuild/abuild.conf points to the private key on disk
-    - cd .abuild
-    - printf '%s\n' "$abuild_key" > "$KEY"
-    - ls -al "$KEY" # to see if environment variable is set
-    - printf 'PACKAGER_PRIVKEY="%s"\n' "$(realpath "$KEY")" >> abuild.conf
-    - cd ..
-    # run as abuild because buildrepo will not run as root
-    - adduser -D -s /bin/ash -h "$(pwd)" -G abuild abuild
+    - printf '%s\n' "$abuild_key" > "$key"
+    - ls -l "$key" # to see length of key / environment variable on disk
+    - apk add ansible && ansible-playbook setup.yml
     - su abuild -c "buildrepo -a \"$(pwd)\" -d \"$(realpath public)\" local"
     - cd public
     - tree -T "aports — $CI_COMMIT_SHA" -H . --noreport -o index.html
