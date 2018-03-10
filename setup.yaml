@@ -39,6 +39,13 @@
         home: "{{ playbook_dir | realpath }}"
         shell: /bin/ash
         createhome: no
+    - name: Make sure the abuild user owns this repository
+      file:
+        state: directory
+        recurse: yes
+        owner: abuild
+        group: abuild
+        path: .
     - name: apk works with minimal path
       file: { state: link, src: /sbin/apk, path: /bin/apk }
 # vim: ft=ansible
