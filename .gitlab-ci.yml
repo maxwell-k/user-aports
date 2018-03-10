@@ -31,6 +31,6 @@ build:
 
 pages:
   stage: deploy
-  script: ["true",]
-  artifacts: { paths: [public,] }
-  only: [master,]
+  script: ["true"]
+  artifacts: { paths: [public] }
+  only: [master]
