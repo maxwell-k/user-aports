@@ -8,7 +8,8 @@ build:
   script:
     - printf '%s\n' "$abuild_key" > "$key"
     - ls -l "$key" # to see length of key / environment variable on disk
-    - apk add ansible && ansible-playbook setup.yml
+    - apk add ansible
+    - ./setup.yaml
     - su abuild -c "buildrepo -a \"$(pwd)\" -d \"$(realpath public)\" local"
     - cd public
     - tree -T "aports — $CI_COMMIT_SHA" -H . --noreport -o index.html
