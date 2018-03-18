@@ -11,6 +11,7 @@ license="Apache-2.0"
 depends="python3 py3-httplib2 py3-uritemplate py3-six py3-oauth2client"
 makedepends="python3"
 source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+options="!check"  # tests are not included in the .tar.gz
 
 builddir="$srcdir/$_pkgname-$pkgver"
 
