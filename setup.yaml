@@ -17,7 +17,7 @@
       copy:
         src: "public/{{ key }}.pub"
         dest: "/etc/apk/keys/{{ key }}.pub"
-    - name: Make testing available for build dependencies
+    - name: Make repositories available for dependencies
       copy:
         dest: /etc/apk/repositories
         content: |
@@ -25,8 +25,8 @@
           {{ mirror }}/edge/community
           {{ mirror }}/edge/testing
           {{ published_url }}/local
-    - name: Fetch repository indexes
-      apk: { update_cache: yes }
+      notify: [Fetch repository indexes]
+    - meta: flush_handlers
     - { name: Add packages, apk: { name: "{{ packages.keys() }}" } }
     - name: Install the public key so `apk index` succeeds
       copy:
@@ -53,5 +53,8 @@
         path: .
     - name: apk works with minimal path
       file: { state: link, src: /sbin/apk, path: /bin/apk }
+  handlers:
+    - name: Fetch repository indexes
+      apk: { update_cache: yes }
 
 # vim: ft=yaml.ansible
