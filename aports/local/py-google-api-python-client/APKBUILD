@@ -1,16 +1,17 @@
 # Contributor: Keith Maxwell <keith.maxwell@gmail.com>
 # Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
-pkgname=py3-google-api-python-client
-_pkgname="${pkgname#py3-}"
+pkgname=py-google-api-python-client
+_pkgname="${pkgname#py-}"
 pkgver=1.6.5
 pkgrel=0
 pkgdesc="The Google API Client for Python"
 url="https://github.com/google/google-api-python-client"
 arch="noarch"
 license="Apache-2.0"
-depends="python3 py3-httplib2 py3-uritemplate py3-six py3-oauth2client"
-makedepends="python3"
+depends="py-httplib2 py-uritemplate py-six py-oauth2client"
+makedepends="python3 python2 py-setuptools"
 source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+subpackages="py3-$_pkgname:_py3 py2-$_pkgname:_py2"
 options="!check"  # tests are not included in the .tar.gz
 
 builddir="$srcdir/$_pkgname-$pkgver"
@@ -18,11 +19,32 @@ builddir="$srcdir/$_pkgname-$pkgver"
 build() {
 	cd "$builddir"
 	python3 setup.py build
+	python2 setup.py build
 }
 
 package() {
+	mkdir -p "$pkgdir"
+}
+
+_py3() {
+	depends="${depends//py-/py3-}"
+	_py python3
+}
+
+_py2() {
+	replaces="$pkgname"
+	depends="${depends//py-/py2-}"
+	_py python2
+}
+
+_py() {
+	local python="$1"
+	pkgdesc="$pkdesg (for $python)"
+	depends="$depends $python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+
 	cd "$builddir"
-	python3 setup.py install --prefix=/usr --root="$pkgdir"
+	"$python" setup.py install --prefix=/usr --root="$subpkgdir"
 }
 
 sha512sums="ecf4e38ed92e25086fd1eec0e9dd35d77bd93a41519555e98887ae869179516d8062546f51b966a6b40e66a45ed86239a7c214bc7ec8286de7c7822a47544c68  google-api-python-client-1.6.5.tar.gz"
