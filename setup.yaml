@@ -48,4 +48,5 @@
         path: .
     - name: apk works with minimal path
       file: { state: link, src: /sbin/apk, path: /bin/apk }
-# vim: ft=ansible
+
+# vim: ft=yaml.ansible
