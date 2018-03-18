@@ -12,7 +12,7 @@
       shadow: to manage users and groups from Ansible
   tasks:
     - name: Check that the private key is available
-      file: { path: keith.maxwell@gmail.com-5a1151a5.rsa, state: file }
+      file: { path: "{{ key }}", state: file }
     - name: Make testing available for build dependencies
       copy:
         dest: /etc/apk/repositories
