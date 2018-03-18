@@ -13,6 +13,10 @@
   tasks:
     - name: Check that the private key is available
       file: { path: "{{ key }}", state: file }
+    - name: Install the public key
+      copy:
+        src: "public/{{ key }}.pub"
+        dest: "/etc/apk/keys/{{ key }}.pub"
     - name: Make testing available for build dependencies
       copy:
         dest: /etc/apk/repositories
@@ -20,6 +24,7 @@
           {{ mirror }}/edge/main
           {{ mirror }}/edge/community
           {{ mirror }}/edge/testing
+          {{ published_url }}/local
     - name: Fetch repository indexes
       apk: { update_cache: yes }
     - { name: Add packages, apk: { name: "{{ packages.keys() }}" } }

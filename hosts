@@ -1,4 +1,5 @@
 all:
   vars:
     mirror: http://dl-cdn.alpinelinux.org/alpine
+    published_url: http://keith.maxwell.gitlab.io/aports
   hosts: { localhost: { ansible_connection: local } }
