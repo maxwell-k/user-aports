@@ -12,16 +12,21 @@
       shadow: to manage users and groups from Ansible
   tasks:
     - name: Check that the private key is available
-      file: { path: keith.maxwell@gmail.com-5a1151a5.rsa, state: file }
-    - name: Make testing available for build dependencies
+      file: { path: "{{ key }}", state: file }
+    - name: Install the public key
+      copy:
+        src: "public/{{ key }}.pub"
+        dest: "/etc/apk/keys/{{ key }}.pub"
+    - name: Make repositories available for dependencies
       copy:
         dest: /etc/apk/repositories
         content: |
           {{ mirror }}/edge/main
           {{ mirror }}/edge/community
           {{ mirror }}/edge/testing
-    - name: Fetch repository indexes
-      apk: { update_cache: yes }
+          {{ published_url }}/local
+      notify: [Fetch repository indexes]
+    - meta: flush_handlers
     - { name: Add packages, apk: { name: "{{ packages.keys() }}" } }
     - name: Install the public key so `apk index` succeeds
       copy:
@@ -48,4 +53,8 @@
         path: .
     - name: apk works with minimal path
       file: { state: link, src: /sbin/apk, path: /bin/apk }
-# vim: ft=ansible
+  handlers:
+    - name: Fetch repository indexes
+      apk: { update_cache: yes }
+
+# vim: ft=yaml.ansible
