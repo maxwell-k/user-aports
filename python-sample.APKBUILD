@@ -1,6 +1,7 @@
 # Contributor: Keith Maxwell <keith.maxwell@gmail.com>
 # Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
 pkgname=NAME
+_pkgname=REAL_NAME
 pkgver=VERSION
 pkgrel=0
 pkgdesc=""
@@ -12,10 +13,6 @@ makedepends="python3-dev"
 source="http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz"
 
 builddir="$srcdir/$_pkgname-$pkgver"
-
-prepare() {
-	cd "$builddir"
-}
 
 build() {
 	cd "$builddir"
@@ -29,8 +26,8 @@ package() {
 
 check() {
 	cd "$builddir"
-	python3 setup.py build
+	python3 setup.py test
 }
 
-md5sums="" #generate with 'abuild checksum'
+sha15sums="" #generate with 'abuild checksum'
 # vim: ft=sh
