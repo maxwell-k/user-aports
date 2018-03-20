@@ -12,7 +12,7 @@ build:
     - ./setup.yaml
     - su abuild -c "buildrepo -k -d \"$PWD/public\" local"
     - cd public
-    - tree -T "aports — $CI_COMMIT_SHA" -H . --noreport -o index.html
+    - tree -T "$CI_PROJECT_NAME — $CI_COMMIT_SHA" -H . --noreport -o index.html
   artifacts: { paths: [public,], expire_in: 1 day }
 
 pages:
