@@ -21,4 +21,19 @@ To get a copy of the main Alpine Linux repository use::
 
     git clone --depth 1 git://git.alpinelinux.org/aports
 
+Resources
+---------
+
+A sample_ `APKBUILD` is available:
+
+.. code:: sh
+
+    curl -o APKBUILD \
+        https://git.alpinelinux.org/cgit/abuild/plain/sample.APKBUILD
+
+The `APKBUILD Reference`_ is a wiki page
+
+.. _sample: https://git.alpinelinux.org/cgit/abuild/log/sample.APKBUILD
+.. _APKBUILD Reference: https://wiki.alpinelinux.org/wiki/APKBUILD_Reference
+
 .. vim: ft=rst
