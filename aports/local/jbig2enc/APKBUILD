@@ -1,23 +1,18 @@
-# This is an example APKBUILD file. Use this as a start to creating your own,
-# and remove these comments.
-# NOTE: Please fill out the license field for your package! If it is unknown,
-# then please put 'unknown'.
-
-# Contributor: Your Name <youremail@domain.com>
-# Maintainer: Your Name <youremail@domain.com>
-pkgname=NAME
-pkgver=VERSION
+# Contributor: Keith Maxwell <keith.maxwell@gmail.com>
+# Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
+pkgname=jbig2enc
+pkgver="0.29"
 pkgrel=0
-pkgdesc=""
-url=""
+pkgdesc="JBIG2 Encoder"
+url="https://github.com/agl/jbig2enc"
 arch="all"
-license="GPL"
-depends=
-depends_dev=
-makedepends="$depends_dev"
+license="Apache-2.0"
+depends=leptonica
+depends_dev="leptonica-dev zlib-dev"
+makedepends="$depends_dev automake autoconf libtool"
 install=
 subpackages="$pkgname-dev $pkgname-doc"
-source="http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz"
 
 builddir="$srcdir"/$pkgname-$pkgver
 
@@ -27,6 +22,7 @@ prepare() {
 
 build() {
 	cd "$builddir"
+	./autogen.sh
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
 		--mandir=/usr/share/man \
@@ -49,4 +45,4 @@ check() {
 	src/jbig2 --version
 }
 
-md5sums="" #generate with 'abuild checksum'
+sha512sums="aa50cdaf61ef0ae473c8139d8da2a4c374450f8d0d31e2260031e8086dab9201c303c86d50cd51427135bef500718cbc3a53baabf2bf505f8908c22a3d361c51  jbig2enc-0.29.tar.gz"
