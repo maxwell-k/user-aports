@@ -12,12 +12,18 @@ depends_dev="leptonica-dev zlib-dev"
 makedepends="$depends_dev automake autoconf libtool"
 install=
 subpackages="$pkgname-dev $pkgname-doc"
-source="$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz
+	10-version.patch
+	20-python2.patch
+	30-dpi.patch
+	40-arguments.patch
+	"
 
 builddir="$srcdir"/$pkgname-$pkgver
 
 prepare() {
 	cd "$builddir"
+	default_prepare
 }
 
 build() {
@@ -45,4 +51,8 @@ check() {
 	src/jbig2 --version
 }
 
-sha512sums="aa50cdaf61ef0ae473c8139d8da2a4c374450f8d0d31e2260031e8086dab9201c303c86d50cd51427135bef500718cbc3a53baabf2bf505f8908c22a3d361c51  jbig2enc-0.29.tar.gz"
+sha512sums="aa50cdaf61ef0ae473c8139d8da2a4c374450f8d0d31e2260031e8086dab9201c303c86d50cd51427135bef500718cbc3a53baabf2bf505f8908c22a3d361c51  jbig2enc-0.29.tar.gz
+6b5de02ca64de1ca95f93b9cc20d6c894ae494681dce158a10ea8afaae96eec4b0253cea9098cdbe239b31f38b4800c17d37e606a20e71773cda99207f95149a  10-version.patch
+8f33e4410c3405443b8ae8c34817fb12b98d591db59d9275940169cde5a56ec21f1723c66bfbcb58848bcca60e091e49f2128bf3ed98857cf3296d9e7f81d507  20-python2.patch
+2a3b832c1434f4aab3d0b2fe90c3307441c3de49d760eb3096b145c70e92623322bd93b539843148e150a6d6d460e2b973b7712e5d6467c1775a55ef5b463a19  30-dpi.patch
+57b5bb941d3b4f89cf6adf15a755b2d4dc80d5cddcc42067f4cc40c90c6e5f732b83035c93c1540921dd33248e32f357c9456874f41d9e7a496e5329d96c3ac6  40-arguments.patch"

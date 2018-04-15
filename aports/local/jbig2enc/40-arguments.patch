@@ -1,0 +1,14 @@
+--- a/pdf.py
++++ b/pdf.py
+@@ -177,7 +177,10 @@
+     import msvcrt
+     msvcrt.setmode(sys.stdout.fileno(), os.O_BINARY)
+ 
+-  if len(sys.argv) == 2:
++  if len(sys.argv) >= 3:
++    sym = sys.argv[1]
++    pages = sys.argv[2:]
++  elif len(sys.argv) == 2:
+     sym = sys.argv[1] + '.sym'
+     pages = glob.glob(sys.argv[1] + '.[0-9]*')
+   elif len(sys.argv) == 1:
