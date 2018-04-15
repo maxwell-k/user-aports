@@ -1,0 +1,49 @@
+# Contributor: Fabio Riga <rifabio@dpersonam.me>
+# Contributor: Valery Kartel <valery.kartel@gmail.com>
+# Contributor: Keith Maxwell <keith.maxwell@gmail.com>
+# Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
+pkgname=sane-backend-canon_dr
+_pkgname=sane-backends
+pkgver=1.0.27
+pkgrel=2
+pkgdesc="Patched canon_dr SANE driver"
+url="http://www.sane-project.org/"
+arch="x86_64"
+license="GPL-2.0-or-later GPL-2.0-or-later-with-sane-exception Public-Domain"
+depends="sane"
+depends_dev=""
+makedepends="diffutils file libtool libusb-dev libpng-dev
+	libjpeg-turbo-dev tiff-dev libgphoto2-dev libieee1284-dev linux-headers"
+source="https://alioth.debian.org/frs/download.php/file/4224/$_pkgname-$pkgver.tar.gz
+	0001-Increase-maximum-page-height-width-in-canon_dr.patch
+	"
+builddir="$srcdir"/$_pkgname-$pkgver
+
+build() {
+	cd "$builddir"
+	./configure BACKENDS="canon_dr" \
+	--prefix=/usr \
+	--sysconfdir=/etc \
+	--with-usb \
+	--disable-rpath \
+	--disable-locking
+	make
+}
+
+check() {
+	cd "$builddir"
+	make check
+}
+
+package() {
+	cd "$builddir"
+	make DESTDIR="$pkgdir/dest" install
+	mkdir -p "$pkgdir"/usr/lib/sane "$pkgdir"/etc/sane.d/dll.d
+	mv "$pkgdir"/dest/usr/lib/sane/libsane-canon_dr.* "$pkgdir"/usr/lib/sane
+	echo canon_dr > "$pkgdir"/etc/sane.d/dll.d/canon_dr
+	mv "$pkgdir"/dest/etc/sane.d/canon_dr.conf "$pkgdir"/etc/sane.d
+	rm -r "$pkgdir/dest"
+}
+
+sha512sums="c6552768bfc10216730fc11011c82f74ca0952182019ded3916072147ec09be5c975ce1d37dc3ccea050c488dbdf983c2ca17dcd702644060ba796ae2591f9c5  sane-backends-1.0.27.tar.gz
+eb5aa9075e25e7ac060b3bbabac573e702e7b2d888749f349e155007e69d8c2da5ccfd99f8a934dbe30d76bd004496fd5423bfeef84e7408e7c0d6e2f442c025  0001-Increase-maximum-page-height-width-in-canon_dr.patch"
