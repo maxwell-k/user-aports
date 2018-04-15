@@ -1,23 +1,18 @@
-# This is an example APKBUILD file. Use this as a start to creating your own,
-# and remove these comments.
-# NOTE: Please fill out the license field for your package! If it is unknown,
-# then please put 'unknown'.
-
-# Contributor: Your Name <youremail@domain.com>
-# Maintainer: Your Name <youremail@domain.com>
-pkgname=NAME
-pkgver=VERSION
+# Contributor: Keith Maxwell <keith.maxwell@gmail.com>
+# Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
+pkgname=sane-frontends
+pkgver="1.0.14"
 pkgrel=0
-pkgdesc=""
-url=""
-arch="all"
-license="GPL"
+pkgdesc="Command line front-ends for SANE"
+url="http://www.san-project.org"
+arch="x86_64"
+license="GPL-2.0"
 depends=
 depends_dev=
 makedepends="$depends_dev"
 install=
 subpackages="$pkgname-dev $pkgname-doc"
-source="http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz"
+source="https://alioth.debian.org/frs/download.php/file/1140/$pkgname-$pkgver.tar.gz"
 
 builddir="$srcdir"/$pkgname-$pkgver
 
@@ -46,8 +41,7 @@ package() {
 check() {
 	# uncomment the 2 lines below if there is a testsuite.  we assume the testsuite
 	# is run using "make check", which is the default for autotools-based build systems.
-	# cd "$builddir"
+	cd "$builddir"
 	# make check
 }
-
-md5sums="" #generate with 'abuild checksum'
+sha512sums="51b24a9bd6889e99419c1d6abb30cb14d8f89b6196c5147044697bdb1b39ee029bdc0d7c6e1f1e800491988aa26f658bc974b25040c49d008ca8977673c78710  sane-frontends-1.0.14.tar.gz"
