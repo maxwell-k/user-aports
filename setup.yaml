@@ -26,7 +26,7 @@
         {{ published_url }}/local
     notify: [Fetch repository indexes]
   - meta: flush_handlers
-  - {name: Add packages, apk: {name: '{{ packages.keys() }}'}}
+  - {name: Add packages, apk: {name: '{{ packages.keys() | list }}'}}
   - name: Install the public key so `apk index` succeeds
     copy:
       src: public/{{ key }}.pub
