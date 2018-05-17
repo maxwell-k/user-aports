@@ -8,13 +8,30 @@ Building locally
 
     ..
       mkdir /builds /builds/keith.maxwell /builds/keith.maxwell/aports-local &&
-      chown abuild:abuild /builds/keith.maxwell/aports-local
       cd /builds/keith.maxwell/aports-local &&
       git clone https://gitlab.com/keith.maxwell/aports-local .
 
 #.  Add the private key as ``keith.maxwell@gmail.com-5a1151a5.rsa``
-#.  Install build tools with ``./setup.yaml``
+#.  Install build tools and add user with ``ansible-playbook ./setup.yaml``
+#.  Change the owner to ``abuild:abuild``
+
+    ..
+      chown -R abuild:abuild /builds/keith.maxwell/aports-local
+
 #.  Build with ``su abuild -c 'buildrepo local'``
+
+Manual steps
+------------
+
+The steps using ``su abuild -c abuild '<step>'`` are::
+
+    1   checksum
+    2   deps
+    3   unpack
+    4   build
+    5   package
+    6   check
+
 
 Main repository
 ---------------
