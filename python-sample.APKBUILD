@@ -29,5 +29,5 @@ check() {
 	python3 setup.py test
 }
 
-sha15sums="" #generate with 'abuild checksum'
-# vim: ft=sh
+sha15sums="" # remove these last two lines and generate with 'abuild checksum'
+# vim: ft=sh.apkbuild
