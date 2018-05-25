@@ -23,14 +23,16 @@ Building locally
 Manual steps
 ------------
 
-The steps using ``su abuild -c abuild '<step>'`` are::
+The steps using ``su abuild -c 'abuild <step>'`` are::
 
     1   checksum
     2   deps
     3   unpack
-    4   build
-    5   package
+    4   prepare
+    5   build
     6   check
+    7   package
+    8   undeps
 
 
 Main repository
