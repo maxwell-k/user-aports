@@ -1,0 +1,35 @@
+# Contributor: Keith Maxwell <keith.maxwell@gmail.com>
+# Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
+pkgname=py3-beancount
+_pkgname=beancount
+pkgver=2.1.2
+pkgrel=0
+pkgdesc="Double-Entry Accounting from Text Files"
+url="http://furius.ca/beancount/"
+arch="x86_64"
+license="GPL-2.0-only"
+depends="python3 py3-dateutil py3-ply py3-bottle py3-lxml py3-magic py3-beautifulsoup4 py3-requests py3-chardet py3-google-api-python-client"
+makedepends="python3-dev py3-setuptools"
+checkdepends="py3-nose"
+source="$_pkgname-$pkgver.tar.gz::https://bitbucket.org/blais/beancount/get/$pkgver.tar.gz"
+_commit="2b20d3017825"
+
+builddir="$srcdir/blais-$_pkgname-$_commit"
+
+build() {
+	cd "$builddir"
+	python3 setup.py build
+	python3 setup.py build_ext -i
+}
+
+package() {
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+check() {
+	cd "$builddir"
+	nosetests beancount -e test_version -e test_xhtml
+}
+
+sha512sums="258ae15a06a3db259bc3f51cf2ac2bcb4e09af156099574833c82258fe29abc1b80665f1dbcb4767ce2e40d09e9359e512307deb3627bfb3ba9637ceebaed20d  beancount-2.1.2.tar.gz"
