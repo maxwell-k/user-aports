@@ -24,6 +24,11 @@ package() {
 	mkdir -p "$pkgdir"
 }
 
+check() {
+	cd "$builddir/build/lib"
+	python3 -c "import ansiblelint"
+}
+
 _py2() {
 	replaces="$pkgname"
 	depends="${depends//py-/py2-}"
