@@ -23,7 +23,8 @@ Building locally
 Manual steps
 ------------
 
-The steps using ``su abuild -c 'abuild <step>'`` are::
+First move to the directory containing the `APKBUILD`, then the steps using
+``su abuild -c 'abuild <step>'`` are::
 
     1   checksum
     2   deps
@@ -33,7 +34,6 @@ The steps using ``su abuild -c 'abuild <step>'`` are::
     6   check
     7   package
     8   undeps
-
 
 Main repository
 ---------------
