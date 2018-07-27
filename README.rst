@@ -12,7 +12,10 @@ Building locally
       git clone https://gitlab.com/keith.maxwell/aports-local .
 
 #.  Add the private key as ``keith.maxwell@gmail.com-5a1151a5.rsa``
-#.  Install build tools and add user with ``ansible-playbook ./site.yaml``
+#.  Install build tools and add user with::
+
+        ansible-playbook -i localhost, ./site.yaml
+
 #.  Change the owner to ``abuild:abuild``
 
     ..

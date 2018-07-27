@@ -1,14 +1,19 @@
 ---
-- hosts: all
+- hosts: localhost
+  connection: local
+  become: true
   name: Setup to build packages
   gather_facts: no
   vars:
+    ansible_python_interpreter: /usr/bin/python3
     key: keith.maxwell@gmail.com-5a1151a5.rsa
+    mirror: http://dl-cdn.alpinelinux.org/alpine
     packages:
       alpine-sdk: for the abuild commmand
       lua-aports: for the buildrepo command
       tree: to create index.html
       shadow: to manage users and groups from Ansible
+    published_url: http://keith.maxwell.gitlab.io/aports-local
   tasks:
   - name: Check that the private key is available
     file: {path: '{{ key }}', state: file}
