@@ -14,7 +14,7 @@ depends="sane"
 depends_dev=""
 makedepends="diffutils file libtool libusb-dev libpng-dev
 	libjpeg-turbo-dev tiff-dev libgphoto2-dev libieee1284-dev linux-headers"
-source="https://alioth.debian.org/frs/download.php/file/4224/$_pkgname-$pkgver.tar.gz
+source="https://gitlab.com/sane-project/backends/uploads/a3ba9fff29253a94e84074917bff581a/$_pkgname-$pkgver.tar.gz
 	0001-Increase-maximum-page-height-width-in-canon_dr.patch
 	"
 builddir="$srcdir"/$_pkgname-$pkgver

@@ -10,8 +10,7 @@ build:
   - printf '%s\n' "$abuild_key" > "$key"
   - ls -l "$key"   # to see length of key / environment variable on disk
   - apk add ansible
-  - ansible-playbook --extra-vars=ansible_python_interpreter=/usr/bin/python3
-    ./setup.yaml
+  - ansible-playbook -i localhost, ./site.yaml
   - su abuild -c "buildrepo -k -d \"$PWD/public\" local"
   - cd public
   - tree -T "$CI_PROJECT_NAME — $CI_COMMIT_SHA" -H . --noreport -o index.html

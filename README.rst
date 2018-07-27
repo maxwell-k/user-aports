@@ -12,7 +12,10 @@ Building locally
       git clone https://gitlab.com/keith.maxwell/aports-local .
 
 #.  Add the private key as ``keith.maxwell@gmail.com-5a1151a5.rsa``
-#.  Install build tools and add user with ``ansible-playbook ./setup.yaml``
+#.  Install build tools and add user with::
+
+        ansible-playbook -i localhost, ./site.yaml
+
 #.  Change the owner to ``abuild:abuild``
 
     ..
@@ -23,7 +26,8 @@ Building locally
 Manual steps
 ------------
 
-The steps using ``su abuild -c 'abuild <step>'`` are::
+First move to the directory containing the `APKBUILD`, then the steps using
+``su abuild -c 'abuild <step>'`` are::
 
     1   checksum
     2   deps
@@ -33,7 +37,6 @@ The steps using ``su abuild -c 'abuild <step>'`` are::
     6   check
     7   package
     8   undeps
-
 
 Main repository
 ---------------
