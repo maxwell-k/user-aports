@@ -16,10 +16,12 @@ Building locally
 
         ansible-playbook -i localhost, ./site.yaml
 
-#.  Change the owner to ``abuild:abuild``
+#.  Change the owner to ``abuild:abuild`` and match the ID of the `abuild` user
+    inside this ``chroot`` to the user configured for commits:
 
     ..
       chown -R abuild:abuild /builds/keith.maxwell/aports-local
+      vim /etc/passwd
 
 #.  Build with ``su abuild -c 'buildrepo local'``
 
