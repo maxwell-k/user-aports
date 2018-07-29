@@ -62,4 +62,33 @@ The `APKBUILD Reference`_ is a wiki page
 .. _sample: https://git.alpinelinux.org/cgit/abuild/log/sample.APKBUILD
 .. _APKBUILD Reference: https://wiki.alpinelinux.org/wiki/APKBUILD_Reference
 
+https://repology.org links for new versions:
+
+..
+    ls -1 aports/local | sed 's/.*/`\0 <>`__/'
+
+-   `dash <https://
+    repology.org/metapackage/dash/information>`__
+-   `jbig2enc <https://
+    repology.org/metapackage/jbig2enc/information>`__
+-   `py-google-api-python-client <https://
+    repology.org/metapackage/python:google-api-python-client/information>`__
+-   `py3-ansible-lint <https://
+    repology.org/metapackage/ansible-lint/information>`__
+-   `py3-beancount <https://
+    repology.org/metapackage/beancount/information>`
+-   `py3-ply <https://
+    repology.org/metapackage/python:ply/information>`__
+-   `py3-ruamel-yaml <https://
+    repology.org/metapackage/python:ruamel-yaml/information>`__
+-   `sane-backend-canon_dr <https://
+    repology.org/metapackage/sane-backends/information>`__
+-   `sane-frontends <https://
+    repology.org/metapackage/sane-frontends/information>`__
+    which incorrectly shows that a more recent version number, matching
+    ``sane-backends``, is available
+
+..
+    grep pkgver= aports/local/*/APKBUILD
+
 .. vim: ft=rst
