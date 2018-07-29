@@ -1,7 +1,7 @@
 # Contributor: Keith Maxwell <keith.maxwell@gmail.com>
 # Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
 pkgname=jbig2enc
-pkgver="0.29"
+pkgver=0.29
 pkgrel=1
 pkgdesc="JBIG2 Encoder"
 url="https://github.com/agl/jbig2enc"
