@@ -19,11 +19,6 @@ source="$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz
 	40-arguments.patch
 	"
 
-prepare() {
-	cd "$builddir"
-	default_prepare
-}
-
 build() {
 	cd "$builddir"
 	./autogen.sh
