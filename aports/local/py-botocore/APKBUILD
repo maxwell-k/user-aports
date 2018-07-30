@@ -1,0 +1,54 @@
+# Maintainer: Valery Kartel <valery.kartel@gmail.com>
+# Contributor: Valery Kartel <valery.kartel@gmail.com>
+pkgname=py-botocore
+pkgver=1.8.20
+pkgrel=0
+_pkgreal=${pkgname#py-}
+pkgdesc="The low-level, core functionality of Boto3"
+url="https://github.com/boto/botocore"
+arch="noarch"
+license="Apache-2.0"
+depends="py-dateutil py-jmespath"
+makedepends="python2-dev python3-dev py-setuptools"
+subpackages="py3-$_pkgreal:_py3 py2-$_pkgreal:_py2"
+source="https://files.pythonhosted.org/packages/source/${_pkgreal:0:1}/$_pkgreal/$_pkgreal-$pkgver.tar.gz"
+builddir="$srcdir/$_pkgreal-$pkgver"
+
+build() {
+	cd "$builddir"
+	python2 setup.py build
+	python3 setup.py build
+}
+
+check() {
+	cd "$builddir"
+	python2 setup.py check
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+}
+
+_py2() {
+	replaces="$pkgname"
+	depends="${depends//py-/py2-}"
+	_py python2
+}
+
+_py3() {
+	depends="${depends//py-/py3-}"
+	_py python3
+}
+
+_py() {
+	local python="$1"
+	pkgdesc="$pkgdesc (for $python)"
+	depends="$depends $python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+
+	cd "$builddir"
+	$python setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+sha512sums="0b822bff75ef26c7e996e354a5c06cb50eb13d7e58f65297adcf023a81084c8b98500c08b906dcfd346e2dadcdde33d472d6d51c3e081af8667c5adcdd2deffd  botocore-1.8.20.tar.gz"
