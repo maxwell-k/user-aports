@@ -40,6 +40,8 @@ First move to the directory containing the `APKBUILD`, then the steps using
     7   package
     8   undeps
 
+Running ``abuild deps && abuild`` will create the ``.apk`` packages.
+
 Main repository
 ---------------
 
