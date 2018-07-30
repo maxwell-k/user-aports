@@ -1,9 +1,7 @@
 # Contributor: Keith Maxwell <keith.maxwell@gmail.com>
 # Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
-_pkgname=ruamel-yaml
-pkgname="py3-${_pkgname}"
-pkgver=0.15.37
-_commit=731f9a604926
+pkgname="py3-ruamel-yaml"
+pkgver=0.15.46
 pkgrel=0
 pkgdesc="ruamel.yaml is a YAML 1.2 loader/dumper package for Python"
 url="https://bitbucket.org/ruamel/yaml"
@@ -12,9 +10,15 @@ license="MIT"
 depends="python3"
 makedepends="python3-dev py3-setuptools"
 checkdepends="py3-pytest"
-source="$_pkgname-$pkgver.tar.gz::$url/get/$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://bitbucket.org/ruamel/yaml/get/$pkgver.tar.gz
+	0001-pathlib-from-standard-library.patch"
 
-builddir="$srcdir/$_pkgname-$_commit"
+
+prepare() {
+	cd "$srcdir"
+	mv ruamel-yaml-???????????? "$pkgname-$pkgver" # directory name contains hash
+	default_prepare
+}
 
 build() {
 	cd "$builddir"
@@ -28,7 +32,9 @@ package() {
 
 check() {
 	cd "$builddir"
+	pwd
 	PYTHONPATH="$builddir/build/lib.linux-x86_64-3.6" pytest-3 \
-		--ignore=_test/test_api_change.py --ignore=_test/lib _test
+		--ignore=_test/lib _test
 }
-sha512sums="f487a353f1873d96565abac2805c503e8e36a7fa0d7f0bf5933fab8ecf7a2581bac3fe177f0bc477e2c7902188a6a2822893d04362ac6a242b14cbe6a093b8c1  ruamel-yaml-0.15.37.tar.gz"
+sha512sums="b77b76a9061c1f8722c5ba4e98645616cef449cce9a38e464540f6dd120af53d75447f476c1518572bfcf25a89b311d4716957577721d9d6e7dbd674bc7b3fff  py3-ruamel-yaml-0.15.46.tar.gz
+662d258cc479bbe65835f1b5d789da2fec76960e525de01cfd9f11774c8ef8982333e4f5623ac0db0888028d654d94aa59bc55e86b840efbe7f741a201c996ad  0001-pathlib-from-standard-library.patch"

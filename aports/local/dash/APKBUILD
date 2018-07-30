@@ -1,6 +1,6 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=dash
-pkgver=0.5.9.1
+pkgver=0.5.10.2
 pkgrel=1
 pkgdesc="Small and fast POSIX-compliant shell"
 url="http://gondor.apana.org.au/~herbert/dash/"
@@ -11,9 +11,7 @@ depends="libedit"
 makedepends="coreutils libedit-dev"
 install="$pkgname.post-install $pkgname.post-upgrade $pkgname.pre-deinstall"
 subpackages="$pkgname-doc"
-source="http://gondor.apana.org.au/~herbert/$pkgname/files/$pkgname-$pkgver.tar.gz
-	optreset.patch"
-builddir="$srcdir/$pkgname-$pkgver"
+source="http://gondor.apana.org.au/~herbert/$pkgname/files/$pkgname-$pkgver.tar.gz"
 
 build() {
 	cd "$builddir"
@@ -41,5 +39,4 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="d56a043b8fab4693d3f70cceb531c37174e7ded4acd5549e53048d7ce29125ff21d7e758f51a4a73e06250d051e246467039989275838c19a2579edea3f72b7d  dash-0.5.9.1.tar.gz
-bd4814fc5eceefa678af98bfd7f0a817c94e04d9e4c6b1e34ec3bb86eccd88f440ca6a6415aec575d14b1de768a67fb24ce3e21e682a3c081ad1d955ea7a866a  optreset.patch"
+sha512sums="0ae29be77794df0ba254967649b9728611a75fbb3acd32ab6634d76399d1ce97c7d12d31da465482a7e4f3207093415c496c39525cace9b78ab3cb9444dd7640  dash-0.5.10.2.tar.gz"

@@ -16,10 +16,12 @@ Building locally
 
         ansible-playbook -i localhost, ./site.yaml
 
-#.  Change the owner to ``abuild:abuild``
+#.  Change the owner to ``abuild:abuild`` and match the ID of the `abuild` user
+    inside this ``chroot`` to the user configured for commits:
 
     ..
       chown -R abuild:abuild /builds/keith.maxwell/aports-local
+      vim /etc/passwd
 
 #.  Build with ``su abuild -c 'buildrepo local'``
 
@@ -55,9 +57,41 @@ A sample_ `APKBUILD` is available:
     curl -o APKBUILD \
         https://git.alpinelinux.org/cgit/abuild/plain/sample.APKBUILD
 
-The `APKBUILD Reference`_ is a wiki page
+The `APKBUILD Reference`_ is a wiki page.
 
-.. _sample: https://git.alpinelinux.org/cgit/abuild/log/sample.APKBUILD
+The default functions can be seen in abuild.in_.
+
 .. _APKBUILD Reference: https://wiki.alpinelinux.org/wiki/APKBUILD_Reference
+.. _abuild.in: https://github.com/alpinelinux/abuild/blob/master/abuild.in
+.. _sample: https://git.alpinelinux.org/cgit/abuild/log/sample.APKBUILD
+
+https://repology.org links for new versions:
+
+..
+    ls -1 aports/local | sed 's/.*/`\0 <>`__/'
+
+-   `dash <https://
+    repology.org/metapackage/dash/information>`__
+-   `jbig2enc <https://
+    repology.org/metapackage/jbig2enc/information>`__
+-   `py-google-api-python-client <https://
+    repology.org/metapackage/python:google-api-python-client/information>`__
+-   `py3-ansible-lint <https://
+    repology.org/metapackage/ansible-lint/information>`__
+-   `py3-beancount <https://
+    repology.org/metapackage/beancount/information>`
+-   `py3-ply <https://
+    repology.org/metapackage/python:ply/information>`__
+-   `py3-ruamel-yaml <https://
+    repology.org/metapackage/python:ruamel-yaml/information>`__
+-   `sane-backend-canon_dr <https://
+    repology.org/metapackage/sane-backends/information>`__
+-   `sane-frontends <https://
+    repology.org/metapackage/sane-frontends/information>`__
+    which incorrectly shows that a more recent version number, matching
+    ``sane-backends``, is available
+
+..
+    grep pkgver= aports/local/*/APKBUILD
 
 .. vim: ft=rst
