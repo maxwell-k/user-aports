@@ -14,8 +14,6 @@ install=
 subpackages="$pkgname-doc"
 source="https://gitlab.com/sane-project/frontends/uploads/478bc6db6345c86a88c6557e541206fe/$pkgname-$pkgver.tar.gz"
 
-builddir="$srcdir"/$pkgname-$pkgver
-
 prepare() {
 	cd "$builddir"
 }

@@ -12,7 +12,6 @@ makedepends="coreutils libedit-dev"
 install="$pkgname.post-install $pkgname.post-upgrade $pkgname.pre-deinstall"
 subpackages="$pkgname-doc"
 source="http://gondor.apana.org.au/~herbert/$pkgname/files/$pkgname-$pkgver.tar.gz"
-builddir="$srcdir/$pkgname-$pkgver"
 
 build() {
 	cd "$builddir"
