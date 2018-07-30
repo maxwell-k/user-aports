@@ -57,13 +57,13 @@ A sample_ `APKBUILD` is available:
     curl -o APKBUILD \
         https://git.alpinelinux.org/cgit/abuild/plain/sample.APKBUILD
 
-The `APKBUILD Reference`_ is a wiki page
+The `APKBUILD Reference`_ is a wiki page.
 
 The default functions can be seen in abuild.in_.
 
+.. _APKBUILD Reference: https://wiki.alpinelinux.org/wiki/APKBUILD_Reference
 .. _abuild.in: https://github.com/alpinelinux/abuild/blob/master/abuild.in
 .. _sample: https://git.alpinelinux.org/cgit/abuild/log/sample.APKBUILD
-.. _APKBUILD Reference: https://wiki.alpinelinux.org/wiki/APKBUILD_Reference
 
 https://repology.org links for new versions:
 
