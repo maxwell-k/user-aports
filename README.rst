@@ -59,6 +59,9 @@ A sample_ `APKBUILD` is available:
 
 The `APKBUILD Reference`_ is a wiki page
 
+The default functions can be seen in abuild.in_.
+
+.. _abuild.in: https://github.com/alpinelinux/abuild/blob/master/abuild.in
 .. _sample: https://git.alpinelinux.org/cgit/abuild/log/sample.APKBUILD
 .. _APKBUILD Reference: https://wiki.alpinelinux.org/wiki/APKBUILD_Reference
 
