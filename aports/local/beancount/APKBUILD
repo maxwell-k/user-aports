@@ -11,9 +11,12 @@ depends="python3 py3-dateutil py3-ply py3-bottle py3-lxml py3-magic py3-beautifu
 makedepends="python3-dev py3-setuptools"
 checkdepends="py3-nose"
 source="$pkgname-$pkgver.tar.gz::https://bitbucket.org/blais/beancount/get/$pkgver.tar.gz"
-_commit="2b20d3017825"
 
-builddir="$srcdir/blais-$pkgname-$_commit"
+prepare() {
+       cd "$srcdir"
+       mv blais-$pkgname-???????????? "$pkgname-$pkgver" # directory name contains hash
+       default_prepare
+}
 
 build() {
 	cd "$builddir"
