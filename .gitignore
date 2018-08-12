@@ -2,5 +2,7 @@
 /*/pkg
 /*/src
 /.abuild/abuild.conf
+/.ash_history
+/.viminfo
 /public/local/x86_64/*.apk
 /public/local/x86_64/APKINDEX.tar.gz
