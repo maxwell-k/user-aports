@@ -40,7 +40,7 @@ First move to the directory containing the `APKBUILD`, then the steps using
     7   package
     8   undeps
 
-Running ``abuild deps && abuild`` will create the ``.apk`` packages.
+Running ``abuild -r`` will create the ``.apk`` packages.
 
 Main repository
 ---------------
@@ -72,20 +72,18 @@ https://repology.org links for new versions:
 ..
     ls -1 aports/local | sed 's/.*/`\0 <>`__/'
 
+-   `beancount <https://
+    repology.org/metapackage/beancount/information>`
 -   `dash <https://
     repology.org/metapackage/dash/information>`__
 -   `jbig2enc <https://
     repology.org/metapackage/jbig2enc/information>`__
--   `py-google-api-python-client <https://
-    repology.org/metapackage/python:google-api-python-client/information>`__
+-   `py-enchant <https://
+    https://repology.org/metapackage/pyenchant/versions>`__
+-   `py-ply <https://
+    repology.org/metapackage/python:ply/information>`__
 -   `py3-ansible-lint <https://
     repology.org/metapackage/ansible-lint/information>`__
--   `py3-beancount <https://
-    repology.org/metapackage/beancount/information>`
--   `py3-ply <https://
-    repology.org/metapackage/python:ply/information>`__
--   `py3-ruamel-yaml <https://
-    repology.org/metapackage/python:ruamel-yaml/information>`__
 -   `sane-backend-canon_dr <https://
     repology.org/metapackage/sane-backends/information>`__
 -   `sane-frontends <https://
