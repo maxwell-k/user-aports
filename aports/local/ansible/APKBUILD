@@ -1,0 +1,37 @@
+# Contributor: Łukasz Jendrysik <scadu@yandex.com>
+# Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
+# Contributor: Takuya Noguchi <takninnovationresearch@gmail.com>
+# Maintainer: Fabian Affolter <fabian@affolter-engineering.ch>
+pkgname=ansible
+pkgver=2.6.2
+pkgrel=0
+pkgdesc="A configuration-management, deployment, task-execution, and multinode orchestration framework"
+url="https://ansible.com"
+arch="noarch"
+license="GPL-3.0-or-later"
+_py=py3
+depends="python3 $_py-yaml $_py-paramiko $_py-jinja2 $_py-markupsafe $_py-crypto"
+makedepends="python2-dev py-setuptools"
+subpackages="$pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://releases.ansible.com/ansible/$pkgname-$pkgver.tar.gz"
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	python3 setup.py build
+}
+
+package() {
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+
+	mkdir -p "$pkgdir"/usr/share/man/man1
+	install -Dm644 "$builddir"/docs/man/man1/*.1 \
+		"$pkgdir"/usr/share/man/man1/
+
+	mkdir -p "$pkgdir"/usr/share/doc/$pkgname/examples/
+	install -m644 examples/* \
+		"$pkgdir"/usr/share/doc/$pkgname/examples/
+	install -m644 README.rst "$pkgdir"/usr/share/doc/$pkgname
+}
+sha512sums="2283d69be267474e839af44e0e7a14a5532cadef7d65baa2af4045cb93d88b76890b735a78cce348916c04f5dc3c2ed78deb22bb8d94d0c0c0306180d79b1a9b  ansible-2.6.2.tar.gz"
