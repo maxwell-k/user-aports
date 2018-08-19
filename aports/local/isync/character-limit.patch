@@ -1,0 +1,27 @@
+With XOAUTH2 on gmail the passwords, which are in fact access tokens, exceed
+the 80 character limit. This patch allows providing access tokens either from a
+command (PassCmd) or at a prompt. It is based upon
+https://bbs.archlinux.org/viewtopic.php?pid=1796979#p1796979
+
+diff --git a/src/drv_imap.c b/src/drv_imap.c
+index 03eaf30..3969bd1 100644
+--- a/src/drv_imap.c
++++ b/src/drv_imap.c
+@@ -1873,7 +1873,7 @@ ensure_password( imap_server_conf_t *srvc )
+ 	if (cmd) {
+ 		FILE *fp;
+ 		int ret;
+-		char buffer[80];
++		char buffer[800];
+ 
+ 		if (*cmd == '+') {
+ 			flushn();
+@@ -1903,7 +1903,7 @@ ensure_password( imap_server_conf_t *srvc )
+ 		free( srvc->pass ); /* From previous runs */
+ 		srvc->pass = nfstrdup( buffer );
+ 	} else if (!srvc->pass) {
+-		char *pass, prompt[80];
++		char *pass, prompt[800];
+ 
+ 		flushn();
+ 		sprintf( prompt, "Password (%s): ", srvc->name );
