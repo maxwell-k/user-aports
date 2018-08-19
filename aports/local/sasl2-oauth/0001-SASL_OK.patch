@@ -1,3 +1,9 @@
+Taken from https://bbs.archlinux.org/viewtopic.php?pid=1796979#p1796979 to
+avoid the following inaccurate error message:
+
+Error: SASL(-13): authentication failure: server rejected XOAUTH2:
+Warning: SASL reported failure despite successful IMAP authentication. Ignoring...
+
 diff --git a/xoauth2.c b/xoauth2.c
 index 9ccca2f..7c3cd69 100644
 --- a/xoauth2.c
