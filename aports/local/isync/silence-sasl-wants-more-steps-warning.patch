@@ -1,0 +1,17 @@
+This patch avoids a warning when using https://github.com/robn/sasl2-oauth:
+
+Warning: SASL wants more steps despite successful IMAP authentication. Ignoring...
+
+diff --git a/src/drv_imap.c b/src/drv_imap.c
+index 56d71cb..91d1685 100644
+--- a/src/drv_imap.c
++++ b/src/drv_imap.c
+@@ -2073,7 +2073,7 @@ done_sasl_auth( imap_store_t *ctx, imap_cmd_t *cmd ATTR_UNUSED, int response )
+ 		int rc = sasl_client_step( ctx->sasl, NULL, 0, &interact, &out, &out_len );
+ 		if (process_sasl_step( ctx, rc, NULL, 0, interact, &out, &out_len ) < 0)
+ 			warn( "Warning: SASL reported failure despite successful IMAP authentication. Ignoring...\n" );
+-		else if (out)
++		else if (out_len > 0)
+ 			warn( "Warning: SASL wants more steps despite successful IMAP authentication. Ignoring...\n" );
+ 	}
+ 
