@@ -28,8 +28,9 @@ Building locally
 Manual steps
 ------------
 
-First move to the directory containing the `APKBUILD`, then the steps using
-``su abuild -c 'abuild <step>'`` are::
+First move to the directory containing the `APKBUILD`, then change to the
+`abuild` user with ``sudo -iu abuild``, then each step below using
+``abuild <step>``::
 
     1   checksum
     2   deps
@@ -71,25 +72,27 @@ https://repology.org links for new versions:
 
 ..
     ls -1 aports/local | sed 's/.*/`\0 <>`__/'
+    grep -H pkgver= ./aports/local/*/APKBUILD
 
+-   `ansible-lint <https://
+    repology.org/metapackage/ansible-lint/information>`__
 -   `beancount <https://
-    repology.org/metapackage/beancount/information>`
+    repology.org/metapackage/beancount/information>`__
 -   `dash <https://
     repology.org/metapackage/dash/information>`__
+-   `isync <https://
+    repology.org/metapackage/isync/information>`__
 -   `jbig2enc <https://
     repology.org/metapackage/jbig2enc/information>`__
--   `py-enchant <https://
-    https://repology.org/metapackage/pyenchant/versions>`__
 -   `py-ply <https://
     repology.org/metapackage/python:ply/information>`__
--   `py3-ansible-lint <https://
-    repology.org/metapackage/ansible-lint/information>`__
 -   `sane-backend-canon_dr <https://
     repology.org/metapackage/sane-backends/information>`__
 -   `sane-frontends <https://
     repology.org/metapackage/sane-frontends/information>`__
     which incorrectly shows that a more recent version number, matching
     ``sane-backends``, is available
+-   `sasl2-oath` has zero releases
 
 ..
     grep pkgver= aports/local/*/APKBUILD
