@@ -1,7 +1,7 @@
 # Maintainer: François Chavant <alpine@mail.chavant.info>
 pkgname=keychain
 pkgver=2.8.5
-pkgrel=1
+pkgrel=0
 pkgdesc="keychain ssh-agent front-end"
 url="http://www.funtoo.org/Keychain"
 arch="noarch"
