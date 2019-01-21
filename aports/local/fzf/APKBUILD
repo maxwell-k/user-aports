@@ -2,7 +2,7 @@
 # Maintainer: Kevin Daudt <ops@ikke.info>
 pkgname=fzf
 pkgver=0.17.5
-pkgrel=2
+pkgrel=3
 pkgdesc="A command-line fuzzy finder"
 url="https://github.com/junegunn/fzf"
 arch="all !s390x !aarch64 !armhf !armv7"
@@ -12,6 +12,7 @@ subpackages="
 	$pkgname-tmux::noarch
 	$pkgname-bash-completion:bashcomp:noarch
 	$pkgname-zsh-completion:zshcomp:noarch
+	$pkgname-doc
 	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/junegunn/fzf/archive/$pkgver.tar.gz
 	no-glide-install.patch"
@@ -37,6 +38,9 @@ package() {
 	cd "$builddir"
 	make install # Just copies the target binary to $buildir/bin
 	install -Dm0755 bin/fzf "$pkgdir"/usr/bin/fzf
+
+	install -D man/man1/fzf.1 "$pkgdir"/usr/share/man/man1/fzf.1
+	install -D man/man1/fzf-tmux.1 "$pkgdir"/usr/share/man/man1/fzf-tmux.1
 }
 
 tmux() {
