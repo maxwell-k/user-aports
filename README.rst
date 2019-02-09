@@ -9,19 +9,23 @@ Building locally
     ..
       mkdir /builds /builds/keith.maxwell /builds/keith.maxwell/aports-local &&
       cd /builds/keith.maxwell/aports-local &&
-      git clone https://gitlab.com/keith.maxwell/aports-local .
+      git clone git@gitlab.com:keith.maxwell/aports-local .
 
 #.  Add the private key as ``keith.maxwell@gmail.com-5a1151a5.rsa``
 #.  Install build tools and add user with::
 
         ansible-playbook -i localhost, ./site.yaml
 
-#.  Change the owner to ``abuild:abuild`` and match the ID of the `abuild` user
-    inside this ``chroot`` to the user configured for commits:
+#.  Match the ID of the `abuild` user inside this ``chroot`` to the user
+    configured for commits:
+
+    ..
+      vim /etc/passwd
+
+#.  Change the owner of the checked out repository to ``abuild:abuild`` and
 
     ..
       chown -R abuild:abuild /builds/keith.maxwell/aports-local
-      vim /etc/passwd
 
 #.  Build with ``su abuild -c 'buildrepo local'``
 

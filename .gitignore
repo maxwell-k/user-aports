@@ -4,6 +4,9 @@
 /*/src
 /.abuild/abuild.conf
 /.ash_history
+/.cache
+/.glide
 /.viminfo
+/packages
 /public/local/x86_64/*.apk
 /public/local/x86_64/APKINDEX.tar.gz

@@ -1,0 +1,31 @@
+# Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
+# Maintainer: Fabian Affolter <fabian@affolter-engineering.ch>
+pkgname=ansible-lint
+pkgver=4.0.1
+pkgrel=0
+pkgdesc="A tool to check ansible playbooks"
+url="https://github.com/ansible/ansible-lint"
+arch="noarch"
+license="MIT"
+depends="ansible py3-six"
+makedepends="python3-dev py3-setuptools"
+source="https://files.pythonhosted.org/packages/source/${pkgname:0:1}/$pkgname/$pkgname-$pkgver.tar.gz"
+provides="py3-ansible-lint=$pkgver-r$pkgrel" # for backward compatibility
+replaces="py3-ansible-lint" # for backward compatibility
+
+build() {
+	cd "$builddir"
+	python3 setup.py build
+}
+
+package() {
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+check() {
+	cd "$builddir/build/lib"
+	python3 -c "import ansiblelint"
+}
+
+sha512sums="c440b9cd099195f610b6838e5e36cadd09497cf876cdd28a6608fb2f408818ac398e14f8a5eb7b450c4de401737209fcfd94a409be11818f049d43227bb260ea  ansible-lint-4.0.1.tar.gz"
