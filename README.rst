@@ -22,7 +22,7 @@ Building locally
     ..
       vim /etc/passwd
 
-#.  Change the owner to ``abuild:abuild`` and
+#.  Change the owner of the checked out repository to ``abuild:abuild`` and
 
     ..
       chown -R abuild:abuild /builds/keith.maxwell/aports-local
