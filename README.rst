@@ -42,10 +42,15 @@ First move to the directory containing the `APKBUILD`, then change to the
     4   prepare
     5   build
     6   check
-    7   package
+    7   rootpkg
     8   undeps
 
-Running ``abuild -r`` will create the ``.apk`` packages.
+
+Running ``abuild -r`` with run through the whole process:
+
+- ``abuild`` without any arguments runs through all of the stages and
+- ``-r`` will install dependencies as required
+
 
 Main repository
 ---------------
