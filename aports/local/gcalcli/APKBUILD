@@ -1,0 +1,33 @@
+# Maintainer:
+# Contributor: Keith Maxwell <keith.maxwell@gmail.com>
+pkgname=gcalcli
+pkgver=4.0.4
+pkgrel=0
+pkgdesc="Google Calendar Command Line Interface"
+url="https://github.com/insanum/gcalcli"
+arch="noarch"
+license="MIT"
+depends="python3 py3-google-api-python-client py3-dateutil py3-gflags py3-vobject py3-parsedatetime"
+makedepends=""
+checkdepends="py3-pytest"
+source="$pkgname-$pkgver.tar.gz::https://github.com/insanum/$pkgname/archive/v$pkgver.tar.gz"
+subpackages="$pkgname-doc"
+
+builddir="$srcdir"/$pkgname-$pkgver
+
+build() {
+	cd "$builddir"
+	python3 setup.py build
+}
+
+package() {
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+check() {
+	cd "$builddir"
+	python3 -m pytest --deselect tests/test_utils.py::test_set_locale
+}
+
+sha512sums="ef6120eda9d5770e23aad660b2d61391f11e6c3b86c127dc67bc2654cf3ed1d4fea66212cd72e17717f8a355ac0c00143cae0a702f530271a4f3937d3ab488ec  gcalcli-4.0.4.tar.gz"
