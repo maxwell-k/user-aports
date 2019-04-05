@@ -15,50 +15,49 @@
       shadow: to manage users and groups from Ansible
     published_url: http://keith.maxwell.gitlab.io/aports-local
   tasks:
-  - name: Check that the private key is available
-    file: {path: '{{ key }}', state: file}
-  - name: Install the public key
-    copy:
-      src: public/{{ key }}.pub
-      dest: /etc/apk/keys/{{ key }}.pub
-  - name: Make repositories available for dependencies
-    copy:
-      dest: /etc/apk/repositories
-      content: |
-        {{ mirror }}/edge/main
-        {{ mirror }}/edge/community
-        {{ mirror }}/edge/testing
-        {{ published_url }}/local
-    notify: [Fetch repository indexes]
-  - meta: flush_handlers
-  - {name: Add packages, apk: {name: '{{ packages.keys() | list }}'}}
-  - name: Install the public key so `apk index` succeeds
-    copy:
-      src: public/{{ key }}.pub
-      dest: /etc/apk/keys/{{ key }}.pub
-  - name: abuild.conf points to private key
-    lineinfile:
-      path: ./.abuild/abuild.conf
-      create: yes
-      line: PACKAGER_PRIVKEY='{{ key | realpath }}'
-  - name: Add the abuild user
-    user:
-      name: abuild
-      group: abuild
-      home: '{{ playbook_dir | realpath }}'
-      shell: /bin/ash
-      createhome: no
-  - name: Make sure the abuild user owns this repository
-    file:
-      state: directory
-      recurse: yes
-      owner: abuild
-      group: abuild
-      path: .
-  - name: apk works with minimal path
-    file: {state: link, src: /sbin/apk, path: /bin/apk}
+    - name: Check that the private key is available
+      file: { path: "{{ key }}", state: file }
+    - name: Install the public key
+      copy:
+        src: public/{{ key }}.pub
+        dest: /etc/apk/keys/{{ key }}.pub
+    - name: Make repositories available for dependencies
+      copy:
+        dest: /etc/apk/repositories
+        content: |
+          {{ mirror }}/edge/main
+          {{ mirror }}/edge/community
+          {{ mirror }}/edge/testing
+          {{ published_url }}/local
+      notify: [Fetch repository indexes]
+    - meta: flush_handlers
+    - { name: Add packages, apk: { name: "{{ packages.keys() | list }}" } }
+    - name: Install the public key so `apk index` succeeds
+      copy:
+        src: public/{{ key }}.pub
+        dest: /etc/apk/keys/{{ key }}.pub
+    - name: abuild.conf points to private key
+      lineinfile:
+        path: ./.abuild/abuild.conf
+        create: yes
+        line: PACKAGER_PRIVKEY='{{ key | realpath }}'
+    - name: Add the abuild user
+      user:
+        name: abuild
+        group: abuild
+        home: "{{ playbook_dir | realpath }}"
+        shell: /bin/ash
+        createhome: no
+    - name: Make sure the abuild user owns this repository
+      file:
+        state: directory
+        recurse: yes
+        owner: abuild
+        group: abuild
+        path: .
+    - name: apk works with minimal path
+      file: { state: link, src: /sbin/apk, path: /bin/apk }
   handlers:
-  - name: Fetch repository indexes
-    apk: {update_cache: yes}
-
+    - name: Fetch repository indexes
+      apk: { update_cache: yes }
 # vim: ft=yaml.ansible
