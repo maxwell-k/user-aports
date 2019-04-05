@@ -36,9 +36,9 @@
       copy:
         src: public/{{ key }}.pub
         dest: /etc/apk/keys/{{ key }}.pub
-    - name: abuild.conf points to private key
+    - name: /etc/abuild.conf points to private key
       lineinfile:
-        path: ./.abuild/abuild.conf
+        path: /etc/abuild.conf
         create: yes
         line: PACKAGER_PRIVKEY='{{ key | realpath }}'
     - name: Add the abuild user

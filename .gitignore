@@ -2,7 +2,6 @@
 /*.rsa
 /*/pkg
 /*/src
-/.abuild/abuild.conf
 /.ash_history
 /.cache
 /.glide
