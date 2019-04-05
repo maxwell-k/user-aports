@@ -12,7 +12,6 @@
       alpine-sdk: for the abuild commmand
       lua-aports: for the buildrepo command
       tree: to create index.html
-      shadow: to manage users and groups from Ansible
     published_url: http://keith.maxwell.gitlab.io/aports-local
   tasks:
     - name: Check that the private key is available
@@ -37,13 +36,6 @@
         path: /etc/abuild.conf
         create: yes
         line: PACKAGER_PRIVKEY='{{ key | realpath }}'
-    - name: Add the abuild user
-      user:
-        name: abuild
-        group: abuild
-        home: "{{ playbook_dir | realpath }}"
-        shell: /bin/ash
-        createhome: no
     - name: apk works with minimal path
       file: { state: link, src: /sbin/apk, path: /bin/apk }
   handlers:
