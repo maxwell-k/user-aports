@@ -36,8 +36,6 @@
         path: /etc/abuild.conf
         create: yes
         line: PACKAGER_PRIVKEY='{{ key | realpath }}'
-    - name: apk works with minimal path
-      file: { state: link, src: /sbin/apk, path: /bin/apk }
   handlers:
     - name: Fetch repository indexes
       apk: { update_cache: yes }
