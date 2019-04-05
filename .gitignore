@@ -6,6 +6,5 @@
 /.cache
 /.glide
 /.viminfo
-/packages
-/public/local/x86_64/*.apk
-/public/local/x86_64/APKINDEX.tar.gz
+/packages/local/x86_64/*.apk
+/packages/local/x86_64/APKINDEX.tar.gz

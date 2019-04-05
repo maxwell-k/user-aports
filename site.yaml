@@ -19,7 +19,7 @@
       file: { path: "{{ key }}", state: file }
     - name: Install the public key so `apk index` succeeds
       copy:
-        src: public/{{ key }}.pub
+        src: packages/{{ key }}.pub
         dest: /etc/apk/keys/{{ key }}.pub
     - name: Make repositories available for dependencies
       copy:

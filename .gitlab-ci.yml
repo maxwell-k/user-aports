@@ -11,13 +11,13 @@ build:
     - ls -l "$key" # to see length of key / environment variable on disk
     - apk add ansible
     - ansible-playbook -i localhost, ./site.yaml
-    - su abuild -c "buildrepo -d \"$PWD/public\" local"
-    - cd public
+    - su abuild -c "buildrepo local"
+    - cd packages
     - tree -T "$CI_PROJECT_NAME — $CI_COMMIT_SHA" -H . --noreport -o index.html
-  artifacts: { paths: [public], expire_in: 1 day }
+  artifacts: { paths: [packages], expire_in: 1 day }
 
 pages:
   stage: deploy
   script: ["true"]
-  artifacts: { paths: [public] }
+  artifacts: { paths: [packages] }
   only: [master]
