@@ -11,6 +11,7 @@ build:
     - ls -l "$key" # to see length of key / environment variable on disk
     - apk add ansible
     - ansible-playbook -i localhost, ./site.yaml
+    - chown -R abuild:abuild .
     - su abuild -c "buildrepo local"
     - cd packages
     - tree -T "$CI_PROJECT_NAME — $CI_COMMIT_SHA" -H . --noreport -o index.html
