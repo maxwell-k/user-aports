@@ -17,7 +17,7 @@
   tasks:
     - name: Check that the private key is available
       file: { path: "{{ key }}", state: file }
-    - name: Install the public key
+    - name: Install the public key so `apk index` succeeds
       copy:
         src: public/{{ key }}.pub
         dest: /etc/apk/keys/{{ key }}.pub
@@ -31,11 +31,7 @@
           {{ published_url }}/local
       notify: [Fetch repository indexes]
     - meta: flush_handlers
-    - { name: Add packages, apk: { name: "{{ packages.keys() | list }}" } }
-    - name: Install the public key so `apk index` succeeds
-      copy:
-        src: public/{{ key }}.pub
-        dest: /etc/apk/keys/{{ key }}.pub
+    - { name: Install packages, apk: { name: "{{ packages.keys() | list }}" } }
     - name: /etc/abuild.conf points to private key
       lineinfile:
         path: /etc/abuild.conf
