@@ -6,20 +6,31 @@
   gather_facts: no
   vars:
     ansible_python_interpreter: /usr/bin/python3
-    key: "{{ lookup('fileglob', '*.rsa') }}"
+    private_key: "{{ (public_key|basename|splitext)[0]|realpath }}"
+    public_key: "{{ lookup('fileglob', 'packages/*.rsa.pub') }}"
+    container: "{{ lookup('file', '/proc/1/cgroup') is search('docker|lxc') }}"
     mirror: http://dl-cdn.alpinelinux.org/alpine
     packages:
       alpine-sdk: for the abuild commmand
       lua-aports: for the buildrepo command
       tree: to create index.html
   tasks:
-    - name: Check that a private key is available
-      assert: { that: "{{ key|join('') is file }}" }
-      when: lookup('file', '/proc/1/cgroup') is search('docker|lxc')
+    - name: Check that a private key is available in the environment
+      assert: { that: "{{ lookup('env', 'abuild_key')|length > 0 }}" }
+      when: container
+    - name: Check that a public key is available
+      assert: { that: "{{ public_key|join('') is file }}" }
+      when: container
+    - name: Save the private key to disk
+      copy:
+        dest: "{{ private_key }}"
+        content: |
+          {{ lookup('env', 'abuild_key') }}
+      when: container
     - name: Install the public key so `apk index` succeeds
       copy:
-        src: packages/{{ key | basename }}.pub
-        dest: /etc/apk/keys/{{ key | basename }}.pub
+        src: "{{ public_key }}"
+        dest: /etc/apk/keys/{{ public_key | basename }}
     - name: Make repositories available for dependencies
       copy:
         dest: /etc/apk/repositories
@@ -34,7 +45,7 @@
       lineinfile:
         path: /etc/abuild.conf
         create: yes
-        line: PACKAGER_PRIVKEY='{{ key }}'
+        line: PACKAGER_PRIVKEY='{{ private_key }}'
   handlers:
     - name: Fetch repository indexes
       apk: { update_cache: yes }

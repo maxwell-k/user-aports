@@ -1,16 +1,11 @@
 ---
 image: alpine:edge
 
-variables:
-  key: keith.maxwell@gmail.com-5a1151a5.rsa
-
 build:
   stage: build
   script:
     - grep 'docker\|lxc' /proc/1/cgroup && adduser -D -h "$PWD" -G abuild
       chronos
-    - printf '%s\n' "$abuild_key" > "$key"
-    - ls -l "$key" # to see length of key / environment variable on disk
     - apk add ansible
     - ansible-playbook -i localhost, ./site.yaml
     - chown -R chronos:abuild .
