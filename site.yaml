@@ -27,7 +27,6 @@
           {{ mirror }}/edge/main
           {{ mirror }}/edge/community
           {{ mirror }}/edge/testing
-          {{ published_url|mandatory }}/local
       notify: [Fetch repository indexes]
     - meta: flush_handlers
     - { name: Install packages, apk: { name: "{{ packages.keys() | list }}" } }

@@ -3,7 +3,6 @@ image: alpine:edge
 
 variables:
   key: keith.maxwell@gmail.com-5a1151a5.rsa
-  published_url: http://keith.maxwell.gitlab.io/aports-local
 
 build:
   stage: build
@@ -13,7 +12,7 @@ build:
     - printf '%s\n' "$abuild_key" > "$key"
     - ls -l "$key" # to see length of key / environment variable on disk
     - apk add ansible
-    - ansible-playbook -i localhost, ./site.yaml -e published_url=$published_url
+    - ansible-playbook -i localhost, ./site.yaml
     - chown -R chronos:abuild .
     - su chronos -c "buildrepo local"
     - cd packages
