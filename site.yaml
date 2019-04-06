@@ -6,7 +6,7 @@
   gather_facts: no
   vars:
     ansible_python_interpreter: /usr/bin/python3
-    key: keith.maxwell@gmail.com-5a1151a5.rsa
+    key: "{{ lookup('fileglob', '*.rsa') }}"
     mirror: http://dl-cdn.alpinelinux.org/alpine
     packages:
       alpine-sdk: for the abuild commmand
@@ -14,12 +14,13 @@
       tree: to create index.html
     published_url: http://keith.maxwell.gitlab.io/aports-local
   tasks:
-    - name: Check that the private key is available
-      file: { path: "{{ key }}", state: file }
+    - name: Check that a private key is available
+      assert: { that: "{{ key|join('') is file }}" }
+      when: lookup('file', '/proc/1/cgroup') is search('docker|lxc')
     - name: Install the public key so `apk index` succeeds
       copy:
-        src: packages/{{ key }}.pub
-        dest: /etc/apk/keys/{{ key }}.pub
+        src: packages/{{ key | basename }}.pub
+        dest: /etc/apk/keys/{{ key | basename }}.pub
     - name: Make repositories available for dependencies
       copy:
         dest: /etc/apk/repositories
@@ -35,7 +36,7 @@
       lineinfile:
         path: /etc/abuild.conf
         create: yes
-        line: PACKAGER_PRIVKEY='{{ key | realpath }}'
+        line: PACKAGER_PRIVKEY='{{ key }}'
   handlers:
     - name: Fetch repository indexes
       apk: { update_cache: yes }
