@@ -7,13 +7,13 @@ variables:
 build:
   stage: build
   script:
-    - grep -q '^abuild:' /etc/passwd || adduser -D -h "$PWD" -G abuild abuild
+    - grep -q '^chronos:' /etc/passwd || adduser -D -h "$PWD" -G abuild chronos
     - printf '%s\n' "$abuild_key" > "$key"
     - ls -l "$key" # to see length of key / environment variable on disk
     - apk add ansible
     - ansible-playbook -i localhost, ./site.yaml
-    - chown -R abuild:abuild .
-    - su abuild -c "buildrepo local"
+    - chown -R chronos:abuild .
+    - su chronos -c "buildrepo local"
     - cd packages
     - tree -T "$CI_PROJECT_NAME — $CI_COMMIT_SHA" -H . --noreport -o index.html
   artifacts: { paths: [packages], expire_in: 1 day }
