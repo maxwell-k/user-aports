@@ -12,7 +12,6 @@
       alpine-sdk: for the abuild commmand
       lua-aports: for the buildrepo command
       tree: to create index.html
-    published_url: http://keith.maxwell.gitlab.io/aports-local
   tasks:
     - name: Check that a private key is available
       assert: { that: "{{ key|join('') is file }}" }
@@ -28,7 +27,7 @@
           {{ mirror }}/edge/main
           {{ mirror }}/edge/community
           {{ mirror }}/edge/testing
-          {{ published_url }}/local
+          {{ published_url|mandatory }}/local
       notify: [Fetch repository indexes]
     - meta: flush_handlers
     - { name: Install packages, apk: { name: "{{ packages.keys() | list }}" } }
