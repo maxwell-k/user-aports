@@ -18,14 +18,13 @@
     - name: Check that a private key is available in the environment
       assert: { that: "{{ lookup('env', 'abuild_key')|length > 0 }}" }
       when: container
-    - name: Check that a public key is available
+    - name: Check that a public key is available in the repository
       assert: { that: "{{ public_key|join('') is file }}" }
       when: container
     - name: Save the private key to disk
       copy:
         dest: "{{ private_key }}"
-        content: |
-          {{ lookup('env', 'abuild_key') }}
+        content: "{{ lookup('env', 'abuild_key') }}\n"
       when: container
     - name: Install the public key so `apk index` succeeds
       copy:
@@ -40,7 +39,8 @@
           {{ mirror }}/edge/testing
     - name: Fetch repository indexes
       apk: { update_cache: yes }
-    - { name: Install packages, apk: { name: "{{ packages.keys() | list }}" } }
+    - name: Install packages
+      apk: { name: "{{ packages.keys() | list }}" }
     - name: /etc/abuild.conf points to private key
       lineinfile:
         path: /etc/abuild.conf
