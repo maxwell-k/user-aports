@@ -7,7 +7,7 @@ build:
     - |
       if test -n "$CI_DISPOSABLE_ENVIRONMENT" ; then
         adduser -D -G abuild chronos &&
-        ln -s "$CI_PROJECT_DIR/aports" /home/chronos/aports
+        ln -s "$CI_PROJECT_DIR" /home/chronos/aports
       fi
     - apk add --quiet ansible
     - ansible-playbook -i localhost, ./site.yaml
