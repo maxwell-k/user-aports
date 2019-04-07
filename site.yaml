@@ -35,7 +35,7 @@
   vars:
     ansible_python_interpreter: /usr/bin/python3
     private_key: "{{ (public_key|basename|splitext)[0]|realpath }}"
-    public_key: "{{ lookup('fileglob', 'packages/*.rsa.pub') }}"
+    public_key: "{{ lookup('fileglob', '*.rsa.pub') }}"
   tasks:
     - name: Check that a private key is available in the environment
       assert: { that: "{{ lookup('env', 'abuild_key')|length > 0 }}" }
@@ -50,8 +50,15 @@
         path: /etc/abuild.conf
         create: yes
         line: PACKAGER_PRIVKEY='{{ private_key }}'
+    - name: Create the output directory
+      file:
+        path: /home/chronos/packages
+        state: directory
+        owner: chronos
+        group: abuild
     - name: Install the public key so `apk index` succeeds
       copy:
         src: "{{ public_key }}"
-        dest: /etc/apk/keys/{{ public_key | basename }}
+        dest: "{{ item }}{{ public_key | basename }}"
+      loop: [/etc/apk/keys/, /home/chronos/packages]
 # vim: ft=yaml.ansible

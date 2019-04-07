@@ -4,12 +4,16 @@ image: alpine:edge
 build:
   stage: build
   script:
-    - grep 'docker\|lxc' /proc/1/cgroup && adduser -D -h "$PWD" -G abuild
-      chronos
-    - apk add ansible
+    - |
+      if test -n "$CI_DISPOSABLE_ENVIRONMENT" ; then
+        adduser -D -G abuild chronos &&
+        ln -s "$CI_PROJECT_DIR/aports" /home/chronos/aports
+      fi
+    - apk add --quiet ansible
     - ansible-playbook -i localhost, ./site.yaml
     - chown -R chronos:abuild .
     - su chronos -c "buildrepo local"
+    - cp -R /home/chronos/packages/. packages
     - cd packages
     - tree -T "$CI_PROJECT_NAME — $CI_COMMIT_SHA" -H . --noreport -o index.html
   artifacts: { paths: [packages], expire_in: 1 day }
