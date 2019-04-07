@@ -26,10 +26,14 @@
         dest: "{{ private_key }}"
         content: "{{ lookup('env', 'abuild_key') }}\n"
       when: container
-    - name: Install the public key so `apk index` succeeds
-      copy:
-        src: "{{ public_key }}"
-        dest: /etc/apk/keys/{{ public_key | basename }}
+    - name: Install packages (clobbers any changes to /etc/abuild.conf)
+      apk: { name: "{{ packages.keys() | list }}" }
+    - name: /etc/abuild.conf (installed above) points to private key
+      lineinfile:
+        path: /etc/abuild.conf
+        create: yes
+        line: PACKAGER_PRIVKEY='{{ private_key }}'
+      when: container
     - name: Make repositories available for dependencies
       copy:
         dest: /etc/apk/repositories
@@ -39,12 +43,8 @@
           {{ mirror }}/edge/testing
     - name: Fetch repository indexes
       apk: { update_cache: yes }
-    - name: Install packages
-      apk: { name: "{{ packages.keys() | list }}" }
-    - name: /etc/abuild.conf points to private key
-      lineinfile:
-        path: /etc/abuild.conf
-        create: yes
-        line: PACKAGER_PRIVKEY='{{ private_key }}'
-      when: container
+    - name: Install the public key so `apk index` succeeds
+      copy:
+        src: "{{ public_key }}"
+        dest: /etc/apk/keys/{{ public_key | basename }}
 # vim: ft=yaml.ansible
