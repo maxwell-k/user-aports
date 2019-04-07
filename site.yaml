@@ -1,39 +1,19 @@
 ---
-- hosts: localhost
+- name: Setup to build Alpine Linux packages
+  hosts: localhost
   connection: local
-  name: Setup to build packages
   gather_facts: no
   vars:
     ansible_python_interpreter: /usr/bin/python3
-    private_key: "{{ (public_key|basename|splitext)[0]|realpath }}"
-    public_key: "{{ lookup('fileglob', 'packages/*.rsa.pub') }}"
-    container: "{{ lookup('file', '/proc/1/cgroup') is search('docker|lxc') }}"
     mirror: http://dl-cdn.alpinelinux.org/alpine
     packages:
       alpine-sdk: for the abuild commmand
       lua-aports: for the buildrepo command
       tree: to create index.html
   tasks:
-    - name: Check that a private key is available in the environment
-      assert: { that: "{{ lookup('env', 'abuild_key')|length > 0 }}" }
-      when: container
-    - name: Check that a public key is available in the repository
-      assert: { that: "{{ public_key|join('') is file }}" }
-      when: container
-    - name: Save the private key to disk
-      copy:
-        dest: "{{ private_key }}"
-        content: "{{ lookup('env', 'abuild_key') }}\n"
-      when: container
     - name: Install packages (clobbers any changes to /etc/abuild.conf)
       apk: { name: "{{ packages.keys() | list }}" }
       become: true
-    - name: /etc/abuild.conf (installed above) points to private key
-      lineinfile:
-        path: /etc/abuild.conf
-        create: yes
-        line: PACKAGER_PRIVKEY='{{ private_key }}'
-      when: container
     - name: Make repositories available for dependencies
       copy:
         dest: /etc/apk/repositories
@@ -45,9 +25,33 @@
     - name: Fetch repository indexes
       apk: { update_cache: yes }
       become: true
+
+- name: Setup to build Alpine Linux packages inside a container
+  hosts: |-
+    {{ lookup('file', '/proc/1/cgroup') is search('docker|lxc') |
+       ternary('localhost', '') }}
+  connection: local
+  gather_facts: no
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    private_key: "{{ (public_key|basename|splitext)[0]|realpath }}"
+    public_key: "{{ lookup('fileglob', 'packages/*.rsa.pub') }}"
+  tasks:
+    - name: Check that a private key is available in the environment
+      assert: { that: "{{ lookup('env', 'abuild_key')|length > 0 }}" }
+    - name: Check that a public key is available in the repository
+      assert: { that: "{{ public_key|join('') is file }}" }
+    - name: Save the private key to disk
+      copy:
+        dest: "{{ private_key }}"
+        content: "{{ lookup('env', 'abuild_key') }}\n"
+    - name: /etc/abuild.conf (installed above) points to private key
+      lineinfile:
+        path: /etc/abuild.conf
+        create: yes
+        line: PACKAGER_PRIVKEY='{{ private_key }}'
     - name: Install the public key so `apk index` succeeds
       copy:
         src: "{{ public_key }}"
         dest: /etc/apk/keys/{{ public_key | basename }}
-      become: true
 # vim: ft=yaml.ansible
