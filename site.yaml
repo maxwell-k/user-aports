@@ -1,7 +1,6 @@
 ---
 - hosts: localhost
   connection: local
-  become: true
   name: Setup to build packages
   gather_facts: no
   vars:
@@ -28,6 +27,7 @@
       when: container
     - name: Install packages (clobbers any changes to /etc/abuild.conf)
       apk: { name: "{{ packages.keys() | list }}" }
+      become: true
     - name: /etc/abuild.conf (installed above) points to private key
       lineinfile:
         path: /etc/abuild.conf
@@ -41,10 +41,13 @@
           {{ mirror }}/edge/main
           {{ mirror }}/edge/community
           {{ mirror }}/edge/testing
+      become: true
     - name: Fetch repository indexes
       apk: { update_cache: yes }
+      become: true
     - name: Install the public key so `apk index` succeeds
       copy:
         src: "{{ public_key }}"
         dest: /etc/apk/keys/{{ public_key | basename }}
+      become: true
 # vim: ft=yaml.ansible
