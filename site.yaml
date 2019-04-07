@@ -46,4 +46,5 @@
         path: /etc/abuild.conf
         create: yes
         line: PACKAGER_PRIVKEY='{{ private_key }}'
+      when: container
 # vim: ft=yaml.ansible
