@@ -1,17 +1,25 @@
 ---
 image: alpine:edge
 
+variables:
+  BUILD_CMD: buildrepo -a $CI_PROJECT_DIR -d $CI_PROJECT_DIR/packages local
+
 build:
   stage: build
   script:
     - |
       if test -n "$CI_DISPOSABLE_ENVIRONMENT" ; then
         adduser -D -G abuild chronos &&
-        apk add --quiet ansible
+        chown -R chronos:abuild . &&
+        apk add --quiet ansible &&
+        ansible-playbook -i localhost, ./site.yaml
       fi
-    - ansible-playbook -i localhost, ./site.yaml
-    - chown -R chronos:abuild .
-    - su chronos -c "buildrepo -a $CI_PROJECT_DIR -d packages local"
+    - |
+      if test "$LOGNAME" = chronos ; then
+        $BUILD_CMD
+      else
+        su chronos -c '$BUILD_CMD'
+      fi
     - cd packages
     - tree -T "$CI_PROJECT_NAME — $CI_COMMIT_SHA" -H . --noreport -o index.html
   artifacts: { paths: [packages], expire_in: 1 day }
