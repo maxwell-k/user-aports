@@ -29,7 +29,7 @@
 - name: Configure localhost to build Alpine Linux packages if inside a container
   hosts: |-
     {{ lookup('file', '/proc/1/cgroup') is search('docker|lxc') |
-       ternary('localhost', '') }}
+       ternary('localhost', []) }}
   connection: local
   gather_facts: no
   vars:
