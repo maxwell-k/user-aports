@@ -16,11 +16,10 @@ Building these packages has been tested:
 1. Clone this repository to "~/aports/":
    `git clone git@gitlab.com:keith.maxwell/aports-local.git ~/aports`
 1. Add the current user to the "abuild" group:
-   `sudo adduser chronos abuild && exec sudo -iu $LOGNAME`
+   `sudo adduser chronos abuild && exec sudo -iu "$LOGNAME"`
 1. Run the shared configuration:
    `cd ~/aports && ansible-playbook -i localhost, site.yaml`
-1. Obtain a private key "<example>"
-1. Set "PACKAGER_PRIVKEY='<example>'" in "/etc/abuild.conf":
+1. Set 'PACKAGER_PRIVKEY' to the private key in '/etc/abuild.conf':
    `sudo vim /etc/abuild.conf`
 1. Add the corresponding public key to "/etc/apk/keys"
 1. Build everything: `buildrepo local`
