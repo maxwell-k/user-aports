@@ -2,9 +2,5 @@
 /*.rsa
 /*/pkg
 /*/src
-/.ash_history
-/.cache
-/.glide
-/.viminfo
 /packages/local/x86_64/*.apk
 /packages/local/x86_64/APKINDEX.tar.gz
