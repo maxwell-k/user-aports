@@ -46,10 +46,12 @@ To get a copy of the main Alpine Linux repository use:
 git clone --depth 1 git://git.alpinelinux.org/aports
 ```
 
-# Resources
+The "abuild" repository includes a [sample] "APKBUILD" nd the The [Python
+package policies wiki page] includes two sample "APKBUILD"s.
 
-A [sample](https://git.alpinelinux.org/cgit/abuild/log/sample.APKBUILD)
-"APKBUILD" is available:
+[sample]: https://wiki.alpinelinux.org/wiki/Python_package_policies
+[python package policies wiki page]:
+  https://wiki.alpinelinux.org/wiki/Python_package_policies
 
 ```sh
 curl -o APKBUILD \
