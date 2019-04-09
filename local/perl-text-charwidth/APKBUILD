@@ -1,3 +1,5 @@
+# Contributor: Keith Maxwell <keith.maxwell@gmail.com>
+# Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
 pkgname=perl-text-charwidth
 pkgver=0.04
 pkgrel=0

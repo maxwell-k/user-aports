@@ -1,8 +1,9 @@
-# Maintainer: Natanael Copa <ncopa@alpinelinux.org>
+# Contributor: Natanael Copa <ncopa@alpinelinux.org>
+# Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
 pkgname=dash
 pkgver=0.5.10.2
 pkgrel=1
-pkgdesc="Small and fast POSIX-compliant shell"
+pkgdesc="Small and fast POSIX-compliant shell compiled with libedit"
 url="http://gondor.apana.org.au/~herbert/dash/"
 arch="all"
 license="GPL-2.0-or-later"
@@ -17,8 +18,8 @@ build() {
 	cd "$builddir"
 
 	./configure \
-		--build=$CBUILD \
-		--host=$CHOST \
+		--build="$CBUILD" \
+		--host="$CHOST" \
 		--prefix=/usr \
 		--sysconfdir=/etc \
 		--mandir=/usr/share/man \
