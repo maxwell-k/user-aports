@@ -1,7 +1,5 @@
 .*.sw?
 /*.rsa
-/*/pkg
-/*/src
 /builds/
 /packages/local/x86_64/*.apk
 /packages/local/x86_64/APKINDEX.tar.gz
