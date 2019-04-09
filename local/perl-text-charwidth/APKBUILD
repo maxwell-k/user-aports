@@ -7,12 +7,11 @@ pkgdesc="Text:CharWidth perl module"
 url="https://metacpan.org/pod/Text::CharWidth"
 arch="all"
 license="Artistic-1.0-Perl"
-depends=""
 makedepends="perl-dev"
 subpackages="$pkgname-doc"
 source="https://cpan.metacpan.org/authors/id/K/KU/KUBOTA/Text-CharWidth-$pkgver.tar.gz"
+builddir="$srcdir/Text-CharWidth-$pkgver"
 
-builddir="$srcdir"/Text-CharWidth-$pkgver
 build() {
 	cd "$builddir"
 	PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
