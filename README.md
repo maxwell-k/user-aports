@@ -51,7 +51,7 @@ First move to the directory containing the "APKBUILD" then change to the
 8   undeps
 ```
 
-Running `abuild -r` with run through the whole process:
+Running `abuild -r` will run through the whole process:
 
 - `abuild` without any arguments runs through all of the stages and
 - `-r` will install dependencies as required
