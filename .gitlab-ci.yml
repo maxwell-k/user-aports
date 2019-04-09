@@ -2,22 +2,30 @@
 image: alpine:edge
 
 variables:
-  key: keith.maxwell@gmail.com-5a1151a5.rsa
+  BUILD_CMD: buildrepo -a $CI_PROJECT_DIR -d $CI_PROJECT_DIR/packages local
 
 build:
   stage: build
   script:
-  - printf '%s\n' "$abuild_key" > "$key"
-  - ls -l "$key"   # to see length of key / environment variable on disk
-  - apk add ansible
-  - ansible-playbook -i localhost, ./site.yaml
-  - su abuild -c "buildrepo -d \"$PWD/public\" local"
-  - cd public
-  - tree -T "$CI_PROJECT_NAME — $CI_COMMIT_SHA" -H . --noreport -o index.html
-  artifacts: {paths: [public], expire_in: 1 day}
+    - |
+      if test -n "$CI_DISPOSABLE_ENVIRONMENT" ; then
+        adduser -D -G abuild chronos &&
+        chown -R chronos:abuild . &&
+        apk add --quiet ansible &&
+        ansible-playbook -i localhost, ./site.yaml
+      fi
+    - |
+      if test "$LOGNAME" = chronos ; then
+        $BUILD_CMD
+      else
+        su chronos -c '$BUILD_CMD'
+      fi
+    - cd packages
+    - tree -T "$CI_PROJECT_NAME — $CI_COMMIT_SHA" -H . --noreport -o index.html
+  artifacts: { paths: [packages], expire_in: 1 day }
 
 pages:
   stage: deploy
-  script: ['true']
-  artifacts: {paths: [public]}
+  script: ["true"]
+  artifacts: { paths: [packages] }
   only: [master]
