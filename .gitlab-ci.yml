@@ -2,11 +2,13 @@
 image: alpine:edge
 
 variables:
-  BUILD_CMD: buildrepo -a $CI_PROJECT_DIR -d $CI_PROJECT_DIR/packages local
+  BUILD_CMD: buildrepo -a $CI_PROJECT_DIR -d $CI_PROJECT_DIR/public local
 
 build:
   stage: build
   script:
+    - find local -type l -exec sh -c 'i="$(readlink -f {})" && rm {} && cp -R
+      "$i" {}' \;
     - |
       if test -n "$CI_DISPOSABLE_ENVIRONMENT" ; then
         adduser -D -G abuild chronos &&
@@ -20,12 +22,12 @@ build:
       else
         su chronos -c '$BUILD_CMD'
       fi
-    - cd packages
+    - cd public
     - tree -T "$CI_PROJECT_NAME — $CI_COMMIT_SHA" -H . --noreport -o index.html
-  artifacts: { paths: [packages], expire_in: 1 day }
+  artifacts: { paths: [public], expire_in: 1 day }
 
 pages:
   stage: deploy
   script: ["true"]
-  artifacts: { paths: [packages] }
+  artifacts: { paths: [public] }
   only: [master]

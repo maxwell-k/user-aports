@@ -32,7 +32,7 @@ Complete the manual steps above and then:
 1. Manually install `gitlab-runner` onto `$PATH`
 1. Install any unmet dependencies like bash: `sudo apk add bash`
 1. Build everything: `gitlab-runner exec shell build`
-1. Packages are in `./builds/0/project-0/packages`
+1. Packages are in `./builds/0/project-0/public`
 
 ## Debugging
 
