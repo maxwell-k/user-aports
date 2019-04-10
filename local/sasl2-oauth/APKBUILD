@@ -9,17 +9,13 @@ arch="all"
 license="mit"
 depends=
 makedepends="autoconf automake libtool cyrus-sasl-dev"
+options="!check" # no test suite available
 install=
 _gitrev=c1d7cd0719c233c89307b7406f92a01602a85993
-source="$pkgname-$pkgver.zip::$url/archive/$_gitrev.zip
-	0001-SASL_OK.patch"
-
-builddir="$srcdir"/$pkgname-$pkgver
-
-prepare() {
-	mv "$srcdir/$pkgname-$_gitrev" "$builddir"
-	default_prepare
-}
+source="$pkgname-$pkgver.zip::https://github.com/robn/sasl2-oauth/archive/$_gitrev.zip
+	0001-SASL_OK.patch
+	"
+builddir="$srcdir"/$pkgname-$_gitrev
 
 build() {
 	cd "$builddir"
@@ -33,11 +29,5 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-check() {
-	# uncomment the 2 lines below if there is a testsuite.  we assume the testsuite
-	# is run using "make check", which is the default for autotools-based build systems.
-	cd "$builddir"
-	# make check
-}
 sha512sums="4aab365bc1a7d3f4f264c6d3df564c2e44fbbd32a713377172cc0280a2645c3b96df8734cf619ac7aea7b32c89a90ec0a323984b542ffd85a12f33b94eab5dff  sasl2-oauth-0.0.1_git20150523.zip
 0f18c9a356fe2ab0463b5692aef9431905daa74f06b4025609ba53f9fecce0b368761892ccd5ce09801a9fde7bee947b5665a6595d6c93b66d49d2d02a0e1886  0001-SASL_OK.patch"

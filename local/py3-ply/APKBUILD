@@ -1,0 +1,32 @@
+# Contributor: Keith Maxwell <keith.maxwell@gmail.com>
+# Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
+pkgname=py3-ply
+pkgver=3.11
+pkgrel=0
+pkgdesc="Python Lex & Yacc"
+url="http://www.dabeaz.com/ply/"
+arch="noarch"
+license="BSD-3-Clause"
+depends="py3-six"
+makedepends="python3-dev"
+source="http://www.dabeaz.com/ply/ply-$pkgver.tar.gz"
+builddir="$srcdir/ply-$pkgver"
+
+build() {
+	cd "$builddir"
+	python3 setup.py build
+}
+
+package() {
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
+}
+
+check() {
+	cd "$builddir/test"
+	python3 testlex.py
+	python3 testyacc.py
+	python3 testcpp.py
+}
+
+sha512sums="37e39a4f930874933223be58a3da7f259e155b75135f1edd47069b3b40e5e96af883ebf1c8a1bbd32f914a9e92cfc12e29fec05cf61b518f46c1d37421b20008  ply-3.11.tar.gz"

@@ -11,7 +11,6 @@ url="http://www.sane-project.org/"
 arch="x86_64"
 license="GPL-2.0-or-later GPL-2.0-or-later-with-sane-exception Public-Domain"
 depends="sane"
-depends_dev=""
 makedepends="diffutils file libtool libusb-dev libpng-dev
 	libjpeg-turbo-dev tiff-dev libgphoto2-dev libieee1284-dev linux-headers"
 source="https://gitlab.com/sane-project/backends/uploads/a3ba9fff29253a94e84074917bff581a/$_pkgname-$pkgver.tar.gz

@@ -1,9 +1,9 @@
 # Contributor: Stuart Cardall <developer@it-offshore.co.uk>
-# Maintainer: Stuart Cardall <developer@it-offshore.co.uk>
+# Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
 pkgname=isync
 pkgver=1.3.0
 pkgrel=5
-pkgdesc="IMAP and MailDir mailbox synchronizer"
+pkgdesc="IMAP and MailDir mailbox synchronizer patched for gmail"
 url="http://isync.sourceforge.net"
 arch="all"
 license="GPL-2.0"
