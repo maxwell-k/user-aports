@@ -1,7 +1,6 @@
 ---
 - name: Configure localhost to build Alpine Linux packages
   hosts: localhost
-  connection: local
   gather_facts: no
   vars:
     ansible_python_interpreter: /usr/bin/python3
@@ -30,7 +29,6 @@
   hosts: |-
     {{ lookup('file', '/proc/1/cgroup') is search('docker|lxc') |
        ternary('localhost', []) }}
-  connection: local
   gather_facts: no
   vars:
     ansible_python_interpreter: /usr/bin/python3

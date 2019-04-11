@@ -14,7 +14,7 @@ build:
         adduser -D -G abuild chronos &&
         chown -R chronos:abuild . &&
         apk add --quiet ansible &&
-        ansible-playbook -i localhost, ./site.yaml
+        ANSIBLE_LOCALHOST_WARNING=False ansible-playbook -i , ./site.yaml
       fi
     - |
       if test "$LOGNAME" = chronos ; then

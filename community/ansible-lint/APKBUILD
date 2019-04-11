@@ -7,7 +7,7 @@ pkgdesc="A tool to check ansible playbooks"
 url="https://github.com/ansible/ansible-lint"
 arch="noarch"
 license="MIT"
-depends="ansible py3-yaml py3-six py3-ruamel py3-setuptools"
+depends="ansible py3-yaml py3-six py3-ruamel.yaml py3-setuptools"
 makedepends="python3-dev"
 source="https://files.pythonhosted.org/packages/source/a/$pkgname/$pkgname-$pkgver.tar.gz
 	10-python3-shebang.patch

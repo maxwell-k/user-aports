@@ -28,8 +28,14 @@ package() {
 
 check(){
 	cd "$builddir"
-	_version="$(python3 -c "print('{}.{}'.format(*__import__('sys').version_info))")"
-	PYTHONPATH="build/lib.linux-$CARCH-$_version" python3 -m pytest \
+	_plat_specifier="$(python3 <<-EOF
+	from distutils.util import get_platform
+	from sys import version_info
+
+	print("{}-{}.{}".format(get_platform(), *version_info))
+	EOF
+	)"
+	PYTHONPATH="build/lib.$_plat_specifier" python3 -m pytest \
 		--deselect=_test/test_issues.py::TestIssues::test_issue_82 \
 		--deselect=_test/test_issues.py::TestIssues::test_issue_220 \
 		--deselect=_test/test_issues.py::TestIssues::test_issue_238 \
