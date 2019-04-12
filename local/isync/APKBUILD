@@ -1,19 +1,28 @@
 # Contributor: Stuart Cardall <developer@it-offshore.co.uk>
 # Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
 pkgname=isync
-pkgver=1.3.0
-pkgrel=5
+pkgver=1.3.0_git20190412
+_commit=95d18e2778f28b7aac4f92dc6770430ee7c7ca4b
+pkgrel=0
 pkgdesc="IMAP and MailDir mailbox synchronizer patched for gmail"
 url="http://isync.sourceforge.net"
 arch="all"
 license="GPL-2.0"
-makedepends="openssl-dev cyrus-sasl-dev zlib-dev db-dev perl-dev"
+makedepends="openssl-dev cyrus-sasl-dev zlib-dev db-dev perl-dev autoconf automake"
 subpackages="$pkgname-doc"
-source="$pkgname-$pkgver.tar.gz::http://downloads.sourceforge.net/sourceforge/isync/$pkgname-$pkgver.tar.gz
+source="$pkgname-$pkgver.zip::https://sourceforge.net/code-snapshots/git/i/is/isync/isync.git/isync-isync-$_commit.zip
 	character-limit.patch
 	silence-sasl-wants-more-steps-warning.patch
 	"
-builddir="$srcdir"/$pkgname-$pkgver
+builddir="$srcdir/isync-isync-$_commit"
+
+prepare() { # requried unless building a released version
+	default_prepare
+
+	cd "$builddir"
+	touch ChangeLog # populated from git log in Makefile.am
+	./autogen.sh # not required if building a release
+}
 
 build() {
 	cd "$builddir"
@@ -36,6 +45,6 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="b5186f2afe97cab58ce55d3ec19ae7371676ae614448614a9e3e02d09662c34b74e559f0926661fa0300ab22dab9e2e9089b78ee38b94141ff3f8b4d75578ffa  isync-1.3.0.tar.gz
+sha512sums="05ffba9a8c2fc56b22509d5beddd3a7ebd07e6fcd25db06d02421ec5fefa61bca802aa09b6f4953d0b8bc675edf2b00f1182809c59325341c9a133a6c4399089  isync-1.3.0_git20190412.zip
 8a8425ae5a4a1f0ca33ead27059acd1f546da0201a3b2b902b442f1165b4f06aa95a4c6506f2eb79e46f4f316db71b47ee49d1f86f5c52d13f6766ae1d1cd829  character-limit.patch
-68578ee8bea8b8b13dbf074bce878365643c1ddc3f017fbffc9b35e0c6f56348664780694a75c07efe5dd7c843f1be73799dff78f205fd83f5ef8e00c4273c0b  silence-sasl-wants-more-steps-warning.patch"
+374a86aeb8db3f5a8b8ceb68b44665a5e48be746eb621beed9db48c31d929fc8788047f603a2aa9ae5e0f25acb55b04d9377aa015dbb7c05dc427fd274758274  silence-sasl-wants-more-steps-warning.patch"
