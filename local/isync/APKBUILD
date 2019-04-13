@@ -8,13 +8,29 @@ pkgdesc="IMAP and MailDir mailbox synchronizer patched for gmail"
 url="http://isync.sourceforge.net"
 arch="all"
 license="GPL-2.0"
-makedepends="openssl-dev cyrus-sasl-dev zlib-dev db-dev perl-dev autoconf automake"
+makedepends="openssl-dev cyrus-sasl-dev zlib-dev db-dev perl-dev
+	git autoconf automake" # for unreleased version only
 subpackages="$pkgname-doc"
-source="$pkgname-$pkgver.zip::https://sourceforge.net/code-snapshots/git/i/is/isync/isync.git/isync-isync-$_commit.zip
+source="$pkgname-$pkgver.tar.gz
 	character-limit.patch
 	silence-sasl-wants-more-steps-warning.patch
 	"
-builddir="$srcdir/isync-isync-$_commit"
+builddir="$srcdir/$pkgname-$pkgver"
+
+fetch() {
+	# sourceforge snapshots are short lived, git clone as workaround
+	mkdir -p "$srcdir"
+	cd "$srcdir"
+	if test ! -f "$pkgname-$pkgver.tar.gz" ; then
+		git clone --bare https://git.code.sf.net/p/isync/isync
+		git --git-dir=isync.git archive --prefix="$pkgname-$pkgver/" \
+			--output="../$pkgname-$pkgver.tar.gz" "$_commit"
+		rm -rf isync.git
+	fi
+
+	default_fetch
+}
+
 
 prepare() { # requried unless building a released version
 	default_prepare
@@ -45,6 +61,6 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="05ffba9a8c2fc56b22509d5beddd3a7ebd07e6fcd25db06d02421ec5fefa61bca802aa09b6f4953d0b8bc675edf2b00f1182809c59325341c9a133a6c4399089  isync-1.3.0_git20190412.zip
+sha512sums="1665abe5f3d0c3180d89126544f3db625ee76f83dfab0e748eaf84c593783c11e1237044c6068aeb749932521d34d87bacfc2dad1f09c5f5c38c699d0c56ad44  isync-1.3.0_git20190412.tar.gz
 8a8425ae5a4a1f0ca33ead27059acd1f546da0201a3b2b902b442f1165b4f06aa95a4c6506f2eb79e46f4f316db71b47ee49d1f86f5c52d13f6766ae1d1cd829  character-limit.patch
 374a86aeb8db3f5a8b8ceb68b44665a5e48be746eb621beed9db48c31d929fc8788047f603a2aa9ae5e0f25acb55b04d9377aa015dbb7c05dc427fd274758274  silence-sasl-wants-more-steps-warning.patch"
