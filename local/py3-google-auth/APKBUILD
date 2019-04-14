@@ -12,8 +12,7 @@ depends="python3 py3-cachetools py3-asn1-modules py3-setuptools py3-rsa py3-six"
 # pluggy only need directly until https://patchwork.alpinelinux.org/patch/4737/ is merged
 checkdepends="py3-certifi py3-flask py3-oauth2client py3-pytest py3-pytest-cov
 	py3-pytest-localserver py3-requests py3-requests-oauthlib py3-urllib3
-	py3-cryptography py3-pluggy"
-# maybe https://pypi.org/project/grpcio/
+	py3-cryptography py3-pluggy>=0.9.0"
 source="https://files.pythonhosted.org/packages/source/g/${_pyname}/${_pyname}-${pkgver}.tar.gz
 	10-use-mock-from-standard-library.patch
 	"
