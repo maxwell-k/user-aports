@@ -10,7 +10,7 @@ arch="noarch"
 license="MIT"
 depends="python3" # detected automatically if C code present
 makedepends="python3-dev" # not required if no C code
-source="http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz"
+source="https://files.pythonhosted.org/packages/source/LETTER/${_pyname}/${_pyname}-${pkgver}.tar.gz"
 
 builddir="$srcdir/$_pyname-$pkgver"
 
@@ -19,14 +19,14 @@ build() {
 	python3 setup.py build
 }
 
-package() {
-	cd "$builddir"
-	python3 setup.py install --prefix=/usr --root="$pkgdir"
-}
-
 check() {
 	cd "$builddir"
 	python3 setup.py test
+}
+
+package() {
+	cd "$builddir"
+	python3 setup.py install --prefix=/usr --root="$pkgdir"
 }
 
 sha15sums="" # these last two lines will be replaced by 'abuild checksum'
