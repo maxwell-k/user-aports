@@ -9,7 +9,8 @@ url="http://bitbucket.org/pytest-dev/pytest-localserver/"
 arch="noarch"
 license="MIT"
 depends="python3"
-checkdepends="py3-pytest py3-six py3-requests py3-werkzeug"
+# pluggy only need directly until https://patchwork.alpinelinux.org/patch/4737/ is merged
+checkdepends="py3-pytest py3-six py3-requests py3-werkzeug py3-pluggy"
 source="${pkgname}-${pkgver}.tar.gz::https://bitbucket.org/pytest-dev/pytest-localserver/get/${pkgver}.tar.gz"
 # 78e960bc4a06d7ec8b95d4e726a70c0d5116b5ac 0.5.0
 builddir="$srcdir/pytest-dev-$_pyname-78e960bc4a06"
