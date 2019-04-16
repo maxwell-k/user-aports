@@ -50,13 +50,15 @@
         line: PACKAGER_PRIVKEY='{{ private_key }}'
     - name: Create the output directory
       file:
-        path: /home/chronos/packages
+        path: "{{ lookup('env', 'CI_PROJECT_DIR') }}/public/local"
         state: directory
         owner: chronos
         group: abuild
+        recurse: yes
+      register: site_directory
     - name: Install the public key so `apk index` succeeds
       copy:
         src: "{{ public_key }}"
         dest: "{{ item }}{{ public_key | basename }}"
-      loop: [/etc/apk/keys/, /home/chronos/packages]
+      loop: [/etc/apk/keys/, "{{ site_directory.path }}"]
 # vim: ft=yaml.ansible
