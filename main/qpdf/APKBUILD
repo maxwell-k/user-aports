@@ -6,10 +6,9 @@ pkgdesc="Command-line tools and library for transforming PDF files"
 url="http://qpdf.sourceforge.net"
 arch="all"
 license="Apache-2.0"
-depends=""
+depends="qpdf-libs=$pkgver-r$pkgrel"
 makedepends="zlib-dev libjpeg-turbo-dev bash"
 checkdepends="coreutils perl"
-install=""
 subpackages="$pkgname-dev
 	$pkgname-doc
 	$pkgname-libs
