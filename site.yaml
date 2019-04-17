@@ -59,6 +59,6 @@
     - name: Install the public key so `apk index` succeeds
       copy:
         src: "{{ public_key }}"
-        dest: "{{ item }}{{ public_key | basename }}"
-      loop: [/etc/apk/keys/, "{{ site_directory.path }}"]
+        dest: "{{ item }}/{{ public_key | basename }}"
+      loop: [/etc/apk/keys, "{{ site_directory.path }}"]
 # vim: ft=yaml.ansible
