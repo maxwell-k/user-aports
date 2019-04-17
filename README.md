@@ -84,12 +84,10 @@ The default functions can be seen in
 
 <https://repology.org> links for new versions:
 
-- ["ansible-lint"](https://repology.org/metapackage/ansible-lint/information)
 - ["beancount"](https://repology.org/metapackage/beancount/information)
 - ["dash"](https://repology.org/metapackage/dash/information)
 - ["isync"](https://repology.org/metapackage/isync/information)
 - ["jbig2enc"](https://repology.org/metapackage/jbig2enc/information)
-- ["py-ply"](https://repology.org/metapackage/python:ply/information)
 - ["sane-backend-canon_dr"](https://repology.org/metapackage/sane-backends/information)
 - ["sane-frontends"](https://repology.org/metapackage/sane-frontends/information)
   which incorrectly shows that a more recent version number, matching
