@@ -1,6 +1,7 @@
 # Contributor: Keith Maxwell <keith.maxwell@gmail.com>
 # Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
 pkgname=py3-ply
+_pyname=ply
 pkgver=3.11
 pkgrel=0
 pkgdesc="Python Lex & Yacc"

@@ -1,6 +1,7 @@
 # Contributor: Keith Maxwell <keith.maxwell@gmail.com>
 # Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
 pkgname=beancount
+_pyname=beancount
 pkgver=2.2.1
 pkgrel=0
 pkgdesc="Double-Entry Accounting from Text Files"
