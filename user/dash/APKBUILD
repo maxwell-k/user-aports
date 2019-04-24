@@ -13,8 +13,8 @@ makedepends="coreutils libedit-dev"
 install="$pkgname.post-install $pkgname.post-upgrade $pkgname.pre-deinstall"
 subpackages="$pkgname-doc"
 # source="http://gondor.apana.org.au/~herbert/$pkgname/files/$pkgname-$pkgver.tar.gz"
-# temporary switch to a mirror:
-source="https://ftp.osuosl.org/pub/blfs/conglomeration/$pkgname/$pkgname-$pkgver.tar.gz"
+# temporary switch to a Debian mirror:
+source="$pkgname-$pkgver.tar.gz::http://deb.debian.org/debian/pool/main/d/$pkgname/${pkgname}_$pkgver.orig.tar.gz"
 
 build() {
 	cd "$builddir"
