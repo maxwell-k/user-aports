@@ -22,7 +22,7 @@ Building these packages has been tested:
 1. Set 'PACKAGER_PRIVKEY' to the private key in '/etc/abuild.conf':
    `sudo vim /etc/abuild.conf`
 1. Add the corresponding public key to "/etc/apk/keys"
-1. Build everything: `buildrepo local`
+1. Build everything: `buildrepo user`
 1. Packages are in `~/packages`
 
 ### Locally using "gitlab-runner" and the shell executor
@@ -95,6 +95,5 @@ The default functions can be seen in
 - "sasl2-oath" has zero releases
 
 ```sh
-ls -1 aports/local | sed 's/.*/`\0 <>`__/'
-grep -H pkgver= ./aports/local/*/APKBUILD
+grep pkgver= ./user/*/APKBUILD
 ```

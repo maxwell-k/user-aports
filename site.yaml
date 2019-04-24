@@ -50,7 +50,7 @@
         line: PACKAGER_PRIVKEY='{{ private_key }}'
     - name: Create the output directory
       file:
-        path: "{{ lookup('env', 'CI_PROJECT_DIR') }}/public/local"
+        path: "{{ lookup('env', 'CI_PROJECT_DIR') }}/public/user"
         state: directory
         owner: chronos
         group: abuild

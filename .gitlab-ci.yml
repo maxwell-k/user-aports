@@ -2,12 +2,12 @@
 image: alpine:edge
 
 variables:
-  BUILD_CMD: buildrepo -a $CI_PROJECT_DIR -d $CI_PROJECT_DIR/public local
+  BUILD_CMD: buildrepo -a $CI_PROJECT_DIR -d $CI_PROJECT_DIR/public user
 
 build:
   stage: build
   script:
-    - find local -type l -exec sh -c 'i="$(readlink -f {})" && rm {} && cp -R
+    - find user -type l -exec sh -c 'i="$(readlink -f {})" && rm {} && cp -R
       "$i" {}' \;
     - |
       if test -n "$CI_DISPOSABLE_ENVIRONMENT" ; then
