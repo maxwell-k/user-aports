@@ -6,26 +6,23 @@ pkgver=VERSION
 pkgrel=0
 pkgdesc=""
 url=""
-arch="noarch"
-license="MIT"
-depends="python3" # detected automatically if C code present
-makedepends="python3-dev" # not required if no C code
+arch="noarch" # TODO: change to all if C code present
+license="MIT" # TODO: check this! valid values in /usr/share/spdx/license.lst
+depends="python3" # TODO: detected automatically if C code present, so remove
+makedepends="python3-dev" # TODO: not required if no C code, so remove
 source="https://files.pythonhosted.org/packages/source/LETTER/${_pyname}/${_pyname}-${pkgver}.tar.gz"
 
 builddir="$srcdir/$_pyname-$pkgver"
 
 build() {
-	cd "$builddir"
 	python3 setup.py build
 }
 
 check() {
-	cd "$builddir"
 	python3 setup.py test
 }
 
 package() {
-	cd "$builddir"
 	python3 setup.py install --prefix=/usr --root="$pkgdir"
 }
 

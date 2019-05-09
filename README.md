@@ -34,6 +34,11 @@ Complete the manual steps above and then:
 1. Build everything: `gitlab-runner exec shell build`
 1. Packages are in `./builds/0/project-0/public`
 
+## Checking
+
+Before submitting packages upstream run `abuild sanitycheck`. To also check the
+value of the licence variable, make sure `spdx-licenses-list` is installed.
+
 ## Debugging
 
 First move to the directory containing the "APKBUILD" then change to the
@@ -93,6 +98,10 @@ The default functions can be seen in
   which incorrectly shows that a more recent version number, matching
   "sane-backends", is available
 - "sasl2-oath" has zero releases
+
+The `.githooks` folder contains a copy of the git hooks from
+<https://github.com/alpinelinux/aports/tree/master/.githooks> and these can be
+activated with `git config core.hooksPath .githooks`.
 
 ```sh
 grep pkgver= ./user/*/APKBUILD
