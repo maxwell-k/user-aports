@@ -15,17 +15,14 @@ source="https://files.pythonhosted.org/packages/source/LETTER/${_pyname}/${_pyna
 builddir="$srcdir/$_pyname-$pkgver"
 
 build() {
-	cd "$builddir"
 	python3 setup.py build
 }
 
 check() {
-	cd "$builddir"
 	python3 setup.py test
 }
 
 package() {
-	cd "$builddir"
 	python3 setup.py install --prefix=/usr --root="$pkgdir"
 }
 
