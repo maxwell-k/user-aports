@@ -94,6 +94,10 @@ The default functions can be seen in
   "sane-backends", is available
 - "sasl2-oath" has zero releases
 
+The `.githooks` folder contains a copy of the git hooks from
+<https://github.com/alpinelinux/aports/tree/master/.githooks> and these can be
+activated with `git config core.hooksPath .githooks`.
+
 ```sh
 grep pkgver= ./user/*/APKBUILD
 ```
