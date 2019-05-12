@@ -18,7 +18,7 @@ Building these packages has been tested:
 1. Add the current user to the "abuild" group:
    `sudo adduser chronos abuild && exec sudo -iu "$LOGNAME"`
 1. Run the shared configuration:
-   `cd ~/aports && ansible-playbook -i localhost, site.yaml`
+   `cd ~/aports && ansible-playbook -i , site.yaml`
 1. Set 'PACKAGER_PRIVKEY' to the private key in '/etc/abuild.conf':
    `sudo vim /etc/abuild.conf`
 1. Add the corresponding public key to "/etc/apk/keys"
