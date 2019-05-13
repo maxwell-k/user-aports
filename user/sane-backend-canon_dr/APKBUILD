@@ -19,7 +19,6 @@ source="https://gitlab.com/sane-project/backends/uploads/a3ba9fff29253a94e840749
 builddir="$srcdir"/$_pkgname-$pkgver
 
 build() {
-	cd "$builddir"
 	./configure BACKENDS="canon_dr" \
 	--prefix=/usr \
 	--sysconfdir=/etc \
@@ -37,7 +36,6 @@ check() {
 }
 
 package() {
-	cd "$builddir"
 	make DESTDIR="$pkgdir/dest" install
 	mkdir -p "$pkgdir"/usr/lib/sane "$pkgdir"/etc/sane.d/dll.d
 	mv "$pkgdir"/dest/usr/lib/sane/libsane-canon_dr.* "$pkgdir"/usr/lib/sane

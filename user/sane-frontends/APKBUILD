@@ -9,10 +9,10 @@ arch="x86_64"
 license="GPL-2.0"
 makedepends="sane-dev"
 subpackages="$pkgname-doc"
+options="!check" # no test suite available
 source="https://gitlab.com/sane-project/frontends/uploads/478bc6db6345c86a88c6557e541206fe/$pkgname-$pkgver.tar.gz"
 
 build() {
-	cd "$builddir"
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
 		--mandir=/usr/share/man \
@@ -21,13 +21,7 @@ build() {
 }
 
 package() {
-	cd "$builddir"
 	make DESTDIR="$pkgdir" install
 }
 
-check() {
-	# no test suite available
-	cd "$builddir"
-	src/scanadf --version
-}
 sha512sums="51b24a9bd6889e99419c1d6abb30cb14d8f89b6196c5147044697bdb1b39ee029bdc0d7c6e1f1e800491988aa26f658bc974b25040c49d008ca8977673c78710  sane-frontends-1.0.14.tar.gz"

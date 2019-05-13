@@ -15,7 +15,6 @@ source="$pkgname-$pkgver.tar.gz
 	character-limit.patch
 	silence-sasl-wants-more-steps-warning.patch
 	"
-builddir="$srcdir/$pkgname-$pkgver"
 
 fetch() {
 	# sourceforge snapshots are short lived, git clone as workaround
@@ -32,7 +31,7 @@ fetch() {
 }
 
 
-prepare() { # requried unless building a released version
+prepare() { # required unless building a released version
 	default_prepare
 
 	cd "$builddir"
@@ -41,7 +40,6 @@ prepare() { # requried unless building a released version
 }
 
 build() {
-	cd "$builddir"
 	./configure \
 		--build="$CBUILD" \
 		--host="$CHOST" \
@@ -52,12 +50,10 @@ build() {
 }
 
 check() {
-	cd "$builddir"
 	make check
 }
 
 package() {
-	cd "$builddir"
 	make DESTDIR="$pkgdir" install
 }
 
