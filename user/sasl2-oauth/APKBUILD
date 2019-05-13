@@ -7,10 +7,8 @@ pkgdesc="An OAuth plugin for libsasl2"
 url="https://github.com/robn/sasl2-oauth"
 arch="all"
 license="MIT"
-depends=
 makedepends="autoconf automake libtool cyrus-sasl-dev"
 options="!check" # no test suite available
-install=
 _gitrev=c1d7cd0719c233c89307b7406f92a01602a85993
 source="$pkgname-$pkgver.zip::https://github.com/robn/sasl2-oauth/archive/$_gitrev.zip
 	0001-SASL_OK.patch
@@ -18,14 +16,12 @@ source="$pkgname-$pkgver.zip::https://github.com/robn/sasl2-oauth/archive/$_gitr
 builddir="$srcdir"/$pkgname-$_gitrev
 
 build() {
-	cd "$builddir"
 	autoreconf -f -i
 	./configure --prefix=/usr
 	make
 }
 
 package() {
-	cd "$builddir"
 	make DESTDIR="$pkgdir" install
 }
 
