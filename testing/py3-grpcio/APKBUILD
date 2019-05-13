@@ -24,13 +24,11 @@ _set_environment_variables() {
 }
 
 build() {
-	cd "$builddir"
 	_set_environment_variables
 	python3 setup.py build
 }
 
 package() {
-	cd "$builddir"
 	_set_environment_variables
 	python3 setup.py install --prefix=/usr --root="$pkgdir"
 }
