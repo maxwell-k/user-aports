@@ -1,4 +1,4 @@
-# 'aports-local'
+# 'user-aports'
 
 Extra packages for Alpine Linux published to GitLab pages.
 
@@ -14,7 +14,7 @@ Building these packages has been tested:
 
 1. New Alpine Linux "chroot" with SSH keys, Ansible and git available
 1. Clone this repository to "~/aports/":
-   `git clone git@gitlab.com:keith.maxwell/aports-local.git ~/aports`
+   `git clone git@gitlab.com:keith.maxwell/user-aports.git ~/aports`
 1. Add the current user to the "abuild" group:
    `sudo adduser chronos abuild && exec sudo -iu "$LOGNAME"`
 1. Run the shared configuration:
