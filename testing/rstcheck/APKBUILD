@@ -8,7 +8,7 @@ pkgdesc="Checks syntax of reStructuredText and code blocks nested within it"
 url="https://github.com/myint/rstcheck"
 arch="noarch"
 license="MIT"
-depends="python3"
+depends="python3 py3-docutils"
 makedepends="py3-setuptools"
 checkdepends="bash py3-docutils"
 # the test suite isn't part of the pypi package:
