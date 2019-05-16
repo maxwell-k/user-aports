@@ -13,6 +13,11 @@
     - name: Install packages (can clobber contents of /etc/abuild.conf)
       apk: { name: "{{ packages.keys() | list }}" }
       become: true
+    - name: Install spdx-licenses-list to check licence=
+      become: true
+      apk:
+        name: spdx-licenses-list
+        repository: "{{ mirror }}/edge/community"
     - name: Make repositories available for dependencies
       copy:
         dest: /etc/apk/repositories

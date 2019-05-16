@@ -14,9 +14,9 @@ Building these packages has been tested:
 
 1. New Alpine Linux "chroot" with SSH keys, Ansible and git available
 1. Clone this repository to "~/aports/":
-   `git clone git@gitlab.com:keith.maxwell/user-aports.git ~/aports`
+   `cd ; git clone git@gitlab.com:maxwell-k/user-aports.git aports`
 1. Add the current user to the "abuild" group:
-   `sudo adduser chronos abuild && exec sudo -iu "$LOGNAME"`
+   `sudo adduser $LOGNAME abuild && exec sudo -iu "$LOGNAME"`
 1. Run the shared configuration:
    `cd ~/aports && ansible-playbook -i , site.yaml`
 1. Set 'PACKAGER_PRIVKEY' to the private key in '/etc/abuild.conf':
@@ -36,8 +36,9 @@ Complete the manual steps above and then:
 
 ## Checking
 
-Before submitting packages upstream run `abuild sanitycheck`. To also check the
-value of the licence variable, make sure `spdx-licenses-list` is installed.
+Before submitting packages upstream run `abuild sanitycheck`. This will also
+check the value of the licence variable, against '/usr/share/spdx/license.lst'
+from `spdx-licenses-list`.
 
 ## Debugging
 
