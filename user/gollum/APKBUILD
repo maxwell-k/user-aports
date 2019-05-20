@@ -1,0 +1,83 @@
+# Contributor: Keith Maxwell <keith.maxwell@gmail.com>
+# Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
+pkgname=gollum
+pkgver=4.1.4
+pkgrel=0
+pkgdesc="A simple, Git-powered wiki with a sweet API and local frontend"
+url="https://github.com/gollum/gollum/"
+arch="noarch"
+license="MIT"
+options="!check" # no test suite in .gem file
+depends="ruby ruby-rdoc ruby-dev" # main
+depends="$depends ruby-charlock_holmes"
+depends="$depends ruby-diff-lcs"
+depends="$depends ruby-json"
+# ruby-mustache doesn't match version specifier
+depends="$depends ruby-nokogiri"
+depends="$depends ruby-posix-spawn"
+depends="$depends ruby-unf_ext"
+# source is created from:
+#
+#   gem install --explain gollum |
+#   tail -n +2 |
+#   while read -r i; do echo "https://rubygems.org/gems/$i.gem" ; done
+#
+# less any packaged dependencies above.
+source="
+	https://rubygems.org/gems/mime-types-data-3.2019.0331.gem
+	https://rubygems.org/gems/mime-types-3.2.2.gem
+	https://rubygems.org/gems/gitlab-grit-2.8.2.gem
+	https://rubygems.org/gems/gollum-grit_adapter-1.0.1.gem
+	https://rubygems.org/gems/rouge-2.2.1.gem
+	https://rubygems.org/gems/stringex-2.8.5.gem
+	https://rubygems.org/gems/sanitize-2.1.1.gem
+	https://rubygems.org/gems/github-markup-1.7.0.gem
+	https://rubygems.org/gems/gemojione-3.3.0.gem
+	https://rubygems.org/gems/unf-0.1.4.gem
+	https://rubygems.org/gems/twitter-text-1.14.7.gem
+	https://rubygems.org/gems/gollum-lib-4.2.10.gem
+	https://rubygems.org/gems/kramdown-1.9.0.gem
+	https://rubygems.org/gems/rack-1.6.11.gem
+	https://rubygems.org/gems/rack-protection-1.5.5.gem
+	https://rubygems.org/gems/tilt-2.0.9.gem
+	https://rubygems.org/gems/sinatra-1.4.8.gem
+	https://rubygems.org/gems/useragent-0.16.10.gem
+	https://rubygems.org/gems/mustache-0.99.8.gem
+	https://rubygems.org/gems/gollum-4.1.4.gem
+	"
+
+package() {
+	cd "$srcdir"
+	local _gemdir
+	_gemdir="$pkgdir/$(ruby -e 'puts Gem.default_dir')"
+	gem install --local \
+		--no-document \
+		--bindir "$pkgdir/usr/bin" \
+		--ignore-dependencies \
+		--install-dir "$_gemdir" \
+		./*.gem
+	cd "$_gemdir"
+	rm -r cache
+	rmdir build_info doc extensions
+}
+
+sha512sums="e5b158a90ce78eba2e0f328bda98d3622d8114ab61bb9636069b5e89a507d39e4c41de7f6ab48a4f49e4b5976cad645928c5d1bcc79f09654dde87e5babeba03  mime-types-data-3.2019.0331.gem
+e098df6001ddb53225cf2f48df4e13f2cb9c5e86f64dfaebfba82ed9f1d60149b05069800ea14d1d76554d760169f3c3cb506cc3c789c74da7e1c8df61d67b7c  mime-types-3.2.2.gem
+0b4bb57cee8a843ba9cd48235add6a3a811f3bb3ef96abce9758870ac93395dda81f8e8dc2bb1d64d89d47c4416b10fd8780fe5fd13f523f029af489286b52f7  gitlab-grit-2.8.2.gem
+f45913eece45a3d1dbcf8777d1b8c66e8747d2de40b1cfd2fad3d337edf7c2ff831349ccc75d5465654967de0a6d62692f485eb28fe73509882eb7dfa6fb3d5f  gollum-grit_adapter-1.0.1.gem
+98cfa6dd85fad2272374798d49922f2e4759a416f4d0aa9ac26593160a3eb6754f689fd03930b7e1276b239b839ddaf660b064c942102af323ede32862e23b73  rouge-2.2.1.gem
+53f9908f176f465d2e884e92dffb26abcdf75593c94ee8250253da0eb29eddf489cf5b3f539135659ad4c0e2dd738d2affff6a946c50abd5f36517148d8338ce  stringex-2.8.5.gem
+1fdab0c67d5668b6a1a978ad649a91f3af66797b5fe3282d80535962a66c23ec56a4520b46e2f6793cac55785b17e5ee9f60616cd5e613f8f986abc6fe5ff71f  sanitize-2.1.1.gem
+25c9908403c52a8d511788698b6992248768db0da93a87e48ae077d41719957dd0c1ca9146980f98cc038d3d6ed18446463bc6bde3808a8c9f096e8b284125d1  github-markup-1.7.0.gem
+7f61584ed75ed1f0511a3a67d10a10790a30397df41200d40b8e582aee4f05aeeef4d19c61b30d1ea6cb33590660884c4f4ec465c402ce1d4890424862fc8144  gemojione-3.3.0.gem
+a4784afa8b852497f758d1b6cdcf095eb9e5397a36c97b1f22b53cf8077cfedbf83fdcda36f359acf59ba61f1ab8b706ddd31d097afbc98a40d2dbd0f934292b  unf-0.1.4.gem
+98addbf8efe7b9f2685f00827194dbb255b31512e8aa5c9dab22ec08b95ccebbcf53790dfc983e71b0644c687b4db98c5d30f74f15b925377403b4d5cf6e5194  twitter-text-1.14.7.gem
+029a02f9239c598fe8d7bd702037599527744a1a8cda023d8222b999045786fbe58152dc3bfbe12110c05afb98c40bc52dc29a4a3eebdf57e0f4ad23efd22155  gollum-lib-4.2.10.gem
+0ac14adec59c4032d27ac0e3c66a0737688295562782c86f80c953fdca56b5611b7f32dfb570649421fdc1b47deea72715a21c907124c99663bc1a23c1f489ec  kramdown-1.9.0.gem
+f54d9c4d72d22c57624bb745399ac0d4f155185d01f956ad395bee2a0add6f11e8d9d25fcd330ec6aa97409ba10c2246424d067999b86f2e5cb1fd74a43c6529  rack-1.6.11.gem
+c4066a50771247fc89d4ddee44ff87e40a24bad95e914ed2f72cbf9c45152e67e51d2ccc7d1725ade637296a080b06f304157a1a024613a97595b144e03e2e70  rack-protection-1.5.5.gem
+522b2b40ca1eefc7df66cb421c66734699a2ffb1e7d1797181c2718f7ca018d3376c1a2b3617b5d3549115af69108db4c3c4632e2682329d5baf24bfdae92b42  tilt-2.0.9.gem
+e56a5a6d7ceb0be4bc537feb6ada2956f1fd64b452dee347b259837aa02041dfa53d9808531cdd0a02a91093ba92f7c505c39f0dd990dfbc6e872681f40bc5e9  sinatra-1.4.8.gem
+a5cf4947822f264bd2bde4c99c9ecc3122572324aa012f4ddcf92f3990089d421e72f4a77962e70300d89c1c1a2b0af369568cf39b0c27f19caed0af7f5b6dda  useragent-0.16.10.gem
+c0df31005968580bf82d03aad40d9373f703a116cd3de2b0a61572e3e9808cb0c221d126cbffb7478e297814f131981122bcfa7045eca7b0d97396b190251868  mustache-0.99.8.gem
+bb7c2fe58e3a57ef8d4da55c51fafbb99f53c93e19dc6eefc9ca5361827211a8f4e8e350aef9d16a5246dee1187c196dc834cdbb3e2fda8171ea207b47e026f3  gollum-4.1.4.gem"
