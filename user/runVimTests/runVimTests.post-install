@@ -1,2 +1,2 @@
 #!/bin/sh
-vim "+helptags ALL" +q
+vim -u NONE -esX "+helptags ALL" +q
