@@ -1,48 +1,21 @@
 # Contributor: Stuart Cardall <developer@it-offshore.co.uk>
 # Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
 pkgname=isync
-pkgver=1.3.0_git20190412
-_commit=95d18e2778f28b7aac4f92dc6770430ee7c7ca4b
-pkgrel=0
+pkgver=1.3.1
+pkgrel=2
 pkgdesc="IMAP and MailDir mailbox synchronizer patched for gmail"
 url="http://isync.sourceforge.net"
 arch="all"
-license="GPL-2.0"
-makedepends="openssl-dev cyrus-sasl-dev zlib-dev db-dev perl-dev
-	git autoconf automake" # for unreleased version only
+license="GPL-3.0-or-later"
+makedepends="openssl-dev cyrus-sasl-dev zlib-dev db-dev perl-dev"
 subpackages="$pkgname-doc"
-source="$pkgname-$pkgver.tar.gz
+source="$pkgname-$pkgver.tar.gz::http://downloads.sourceforge.net/sourceforge/isync/$pkgname-$pkgver.tar.gz
 	character-limit.patch
-	silence-sasl-wants-more-steps-warning.patch
-	"
-
-fetch() {
-	# sourceforge snapshots are short lived, git clone as workaround
-	mkdir -p "$srcdir"
-	cd "$srcdir"
-	if test ! -f "$pkgname-$pkgver.tar.gz" ; then
-		git clone --bare https://git.code.sf.net/p/isync/isync
-		git --git-dir=isync.git archive --prefix="$pkgname-$pkgver/" \
-			--output="../$pkgname-$pkgver.tar.gz" "$_commit"
-		rm -rf isync.git
-	fi
-
-	default_fetch
-}
-
-
-prepare() { # required unless building a released version
-	default_prepare
-
-	cd "$builddir"
-	touch ChangeLog # populated from git log in Makefile.am
-	./autogen.sh # not required if building a release
-}
-
+        "
 build() {
 	./configure \
-		--build="$CBUILD" \
-		--host="$CHOST" \
+		--build=$CBUILD \
+		--host=$CHOST \
 		--prefix=/usr \
 		--sysconfdir=/etc \
 		--mandir=/usr/share/man
@@ -57,6 +30,5 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="1665abe5f3d0c3180d89126544f3db625ee76f83dfab0e748eaf84c593783c11e1237044c6068aeb749932521d34d87bacfc2dad1f09c5f5c38c699d0c56ad44  isync-1.3.0_git20190412.tar.gz
-8a8425ae5a4a1f0ca33ead27059acd1f546da0201a3b2b902b442f1165b4f06aa95a4c6506f2eb79e46f4f316db71b47ee49d1f86f5c52d13f6766ae1d1cd829  character-limit.patch
-374a86aeb8db3f5a8b8ceb68b44665a5e48be746eb621beed9db48c31d929fc8788047f603a2aa9ae5e0f25acb55b04d9377aa015dbb7c05dc427fd274758274  silence-sasl-wants-more-steps-warning.patch"
+sha512sums="59d702d41d4a4e72f03cb282b414d0bb859593171763e845bc24d116a74f807a79e5be61f1dd1f59a9ece492322bceac156b08958a246cbfbe7f230fab4cdda2  isync-1.3.1.tar.gz
+8a8425ae5a4a1f0ca33ead27059acd1f546da0201a3b2b902b442f1165b4f06aa95a4c6506f2eb79e46f4f316db71b47ee49d1f86f5c52d13f6766ae1d1cd829  character-limit.patch"
