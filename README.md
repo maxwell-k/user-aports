@@ -95,9 +95,12 @@ The default functions can be seen in
 - ["jbig2enc"](https://repology.org/metapackage/jbig2enc/information)
 - ["sane-backend-canon_dr"](https://repology.org/metapackage/sane-backends/information)
 - ["sane-frontends"](https://repology.org/metapackage/sane-frontends/information)
-  which incorrectly shows that a more recent version number, matching
-  "sane-backends", is available
-- "sasl2-oath" has zero releases
+
+Two of the included packages are not tracked by <https://repology.org>, so instead try
+<https://github.com>:
+
+- ["sasl2-oath"](https://github.com/robn/sasl2-oauth)
+- ["runvimtests"](https://github.com/inkarkat/runVimTests)
 
 The `.githooks` folder contains a copy of the git hooks from
 <https://github.com/alpinelinux/aports/tree/master/.githooks> and these can be
