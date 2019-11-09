@@ -90,7 +90,6 @@ The default functions can be seen in
 
 <https://repology.org> links for new versions:
 
-- ["beancount"](https://repology.org/metapackage/beancount/information)
 - ["dash"](https://repology.org/metapackage/dash/information)
 - ["isync"](https://repology.org/metapackage/isync/information)
 - ["jbig2enc"](https://repology.org/metapackage/jbig2enc/information)
