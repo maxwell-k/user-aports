@@ -2,9 +2,8 @@
 # Maintainer: Keith Maxwell <keith.maxwell@gmail.com>
 pkgname=runvimtests
 _pkgname=runVimTests
-pkgver=1.25_git20180301 # not submitted upstream because unreleased version
+pkgver=1.30
 pkgrel=0
-_commit=26b53e005251671adda022ec8850134eb50da564
 pkgdesc="A testing framework for Vim"
 url="https://github.com/inkarkat/runVimTests"
 arch="noarch"
@@ -12,9 +11,9 @@ license="Vim"
 depends="vim bash"
 options="!check" # no return codes from test suite
 install="$pkgname.post-install"
-source="$pkgname-$pkgver.tar.gz::https://github.com/inkarkat/runVimTests/archive/$_commit.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/inkarkat/runVimTests/archive/$pkgver.tar.gz"
 
-builddir="$srcdir/$_pkgname-$_commit"
+builddir="$srcdir/$_pkgname-$pkgver"
 
 package() {
 	local _dest="$pkgdir/usr/share/vim/vimfiles"
@@ -29,4 +28,4 @@ package() {
 	ln -s ../share/vim/vimfiles/bin/runVimTests.sh runVimTests
 }
 
-sha512sums="a56d758e226e2f91a89a3f14839a4ed1f9c5f17c6426ca77f8bcbee6e66c927d0662e5565baa1432a551f8614a9ceebdaef00d5918e4c0cc7204fe75d9d434f9  runvimtests-1.25_git20180301.tar.gz"
+sha512sums="d016d0e1fec531d168ceb9c2bd6df34ab31592c5349867ea979ebf45111e86d21893a3edafc326bb246019b5f94733dbaa87a289b49c09d6e60da3fdde42b383  runvimtests-1.30.tar.gz"
